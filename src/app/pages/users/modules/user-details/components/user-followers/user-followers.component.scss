@@ -1,0 +1,16 @@
+.user-followers {
+  &__title {
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  &__list-item {
+    flex: 1;
+    max-width: 300px;
+  }
+}

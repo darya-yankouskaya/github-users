@@ -5,6 +5,8 @@ import { UsersState } from './users.state';
 import {
   getUserDetails,
   getUserDetailsSuccess,
+  getUserFollowers,
+  getUserFollowersSuccess,
   getUsers,
   getUsersSuccess,
 } from './users.actions';
@@ -32,7 +34,22 @@ export class UsersEffects {
       concatLatestFrom(() => [this.store.select(selectParams)]),
       switchMap(([_, params]) =>
         this.usersApiService.getUserByUsername(params['username']).pipe(
-          map(userDetails => getUserDetailsSuccess({ payload: userDetails })),
+          switchMap(userDetails => [
+            getUserDetailsSuccess({ payload: userDetails }),
+            getUserFollowers({ payload: userDetails.followersUrl }),
+          ]),
+          catchError(() => EMPTY),
+        ),
+      ),
+    ),
+  );
+
+  getUserFollowers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getUserFollowers),
+      switchMap(({ payload }) =>
+        this.usersApiService.getUserFollowers(payload).pipe(
+          map(userDetails => getUserFollowersSuccess({ payload: userDetails })),
           catchError(() => EMPTY),
         ),
       ),

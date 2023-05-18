@@ -52,6 +52,13 @@
       </section>
     </mat-card-content>
   </mat-card>
+
+  <ng-container *ngIf="userFollowers$ | async as followers">
+    <app-user-followers
+      *ngIf="followers.length"
+      [followers]="followers"
+    ></app-user-followers>
+  </ng-container>
 </section>
 
 <ng-template #emptyValue>

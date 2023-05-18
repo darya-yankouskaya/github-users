@@ -11,12 +11,14 @@ export interface UserDetails extends User {
   createdAt: string;
   email: string | null;
   followers: number;
+  followersUrl: string;
   following: number;
   hireable: boolean | null;
   location: string | null;
   name: string | null;
   publicRepos: number;
   publicGists: number;
+  reposUrl: string;
   twitterUsername: string | null;
   updatedAt: string;
 }

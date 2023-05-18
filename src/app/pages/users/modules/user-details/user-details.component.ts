@@ -7,7 +7,10 @@ import {
 import { UsersState } from '../../store/users.state';
 import { Store } from '@ngrx/store';
 import { getUserDetails, resetSelectedUser } from '../../store/users.actions';
-import { selectUserDetails } from '../../store/users.selectors';
+import {
+  selectUserDetails,
+  selectUserFollowers,
+} from '../../store/users.selectors';
 import { USER_STATISTIC_DATA } from '../../constants/user-details.constants';
 
 @Component({
@@ -19,6 +22,7 @@ import { USER_STATISTIC_DATA } from '../../constants/user-details.constants';
 export class UserDetailsComponent implements OnInit, OnDestroy {
   public readonly statisticsData = USER_STATISTIC_DATA;
   public userDetails$ = this.store.select(selectUserDetails);
+  public userFollowers$ = this.store.select(selectUserFollowers);
 
   constructor(private store: Store<UsersState>) {}
 

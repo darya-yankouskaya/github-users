@@ -22,3 +22,13 @@ export const getUserDetailsSuccess = createAction(
 export const resetSelectedUser = createAction(
   `${userActionsPrefix} Reset Selected User`,
 );
+
+export const getUserFollowers = createAction(
+  `${userActionsPrefix} Get User Followers`,
+  props<{ payload: string }>(),
+);
+
+export const getUserFollowersSuccess = createAction(
+  `${userActionsPrefix} Get User Followers Success`,
+  props<{ payload: User[] }>(),
+);

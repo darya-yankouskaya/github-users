@@ -29,3 +29,8 @@ export const selectUserDetails = createSelector(
   selectUsersFeature,
   (state: UsersState) => state.userDetails,
 );
+
+export const selectUserFollowers = createSelector(
+  selectUsersFeature,
+  (state: UsersState) => state.userFollowers,
+);
