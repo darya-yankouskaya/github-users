@@ -1,0 +1,67 @@
+@use 'mixins.scss' as mixin;
+
+$border: 1px solid rgb(195, 192, 192);
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  gap: 24px;
+  padding: 24px;
+
+  @include mixin.respond-to('medium') {
+    flex-direction: row;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+    padding: 24px;
+  }
+
+  &__user-card {
+    width: 300px;
+  }
+
+  &__main-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    @include mixin.respond-to('small') {
+      flex-direction: row;
+    }
+  }
+
+  &__info-list {
+    border: $border;
+    border-radius: 4px;
+  }
+
+  &__info-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 50px;
+    width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    &:not(:last-of-type) {
+      border-bottom: $border;
+    }
+  }
+
+  &__info-list-title {
+    font-weight: bold;
+  }
+}

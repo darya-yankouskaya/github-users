@@ -9,4 +9,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class UserCardComponent {
   @Input({ required: true }) avatarUrl!: string;
   @Input({ required: true }) login!: string;
+  @Input() description: string | undefined;
 }

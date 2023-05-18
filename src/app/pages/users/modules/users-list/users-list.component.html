@@ -15,7 +15,7 @@
 
   <ul class="user-list__list">
     <li *ngFor="let user of users$ | async" class="user-list__item">
-      <a>
+      <a [routerLink]="['./', user.login]" queryParamsHandling="merge">
         <app-user-card
           [avatarUrl]="user.avatarUrl"
           [login]="user.login"

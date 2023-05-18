@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { UserDetailsComponent } from './user-details.component';
 import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '../../../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -17,6 +17,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [UserDetailsComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [SharedModule, RouterModule.forChild(routes)],
 })
 export class UserDetailsModule {}

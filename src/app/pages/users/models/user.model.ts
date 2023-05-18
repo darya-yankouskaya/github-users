@@ -21,6 +21,12 @@ export interface UserDetails extends User {
   updatedAt: string;
 }
 
+export interface UserDetailsStatistic {
+  title: string;
+  field: keyof UserDetails;
+  backgroundColor: string;
+}
+
 export interface UserDto {
   avatar_url: string;
   events_url: string;

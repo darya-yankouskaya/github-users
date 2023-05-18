@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { UsersState } from '../../store/users.state';
+import { Store } from '@ngrx/store';
+import { getUserDetails, resetSelectedUser } from '../../store/users.actions';
+import { selectUserDetails } from '../../store/users.selectors';
+import { USER_STATISTIC_DATA } from '../../constants/user-details.constants';
 
 @Component({
   selector: 'app-user-details',
@@ -6,4 +16,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./user-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserDetailsComponent {}
+export class UserDetailsComponent implements OnInit, OnDestroy {
+  public readonly statisticsData = USER_STATISTIC_DATA;
+  public userDetails$ = this.store.select(selectUserDetails);
+
+  constructor(private store: Store<UsersState>) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(getUserDetails());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(resetSelectedUser());
+  }
+}

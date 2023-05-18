@@ -7,7 +7,7 @@ import { UsersState } from '../../store/users.state';
 import { getUsers } from '../../store/users.actions';
 import { selectFilteredUsers } from '../../store/users.selectors';
 import { untilDestroy } from '../../../../shared/utils/until-destroy';
-import { QueryParams } from '../../../../shared/components/enums/query-params.enum';
+import { QueryParams } from '../../../../shared/enums/query-params.enum';
 import { selectQueryParams } from 'src/app/shared/store/router/router.selectors';
 
 @Component({
