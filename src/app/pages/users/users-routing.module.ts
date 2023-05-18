@@ -11,7 +11,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: ':userId',
+    path: ':username',
     loadChildren: () =>
       import('./modules/user-details/user-details.module').then(
         m => m.UserDetailsModule,
