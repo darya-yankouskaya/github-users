@@ -1,1 +1,26 @@
-<p>users-list works!</p>
+<section class="user-list">
+  <h1>Search Github Users</h1>
+
+  <mat-form-field appearance="outline" class="user-list__search-field">
+    <mat-label>{{ searchPlaceholder }}</mat-label>
+    <input
+      matInput
+      [placeholder]="searchPlaceholder"
+      [formControl]="searchControl"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <h2 class="visually-hidden">Github Users List</h2>
+
+  <ul class="user-list__list">
+    <li *ngFor="let user of users$ | async" class="user-list__item">
+      <a>
+        <app-user-card
+          [avatarUrl]="user.avatarUrl"
+          [login]="user.login"
+        ></app-user-card>
+      </a>
+    </li>
+  </ul>
+</section>

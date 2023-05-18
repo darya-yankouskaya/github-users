@@ -1,0 +1,34 @@
+@use 'mixins.scss' as mixin;
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  padding: 24px;
+
+  &__search-field {
+    max-width: 500px;
+  }
+
+  &__list {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(1fr);
+
+    @include mixin.respond-to('small') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mixin.respond-to('medium') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include mixin.respond-to('large') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__item {
+    min-width: 200px;
+  }
+}

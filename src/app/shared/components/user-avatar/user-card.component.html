@@ -1,0 +1,14 @@
+<mat-card class="user-card">
+  <mat-card-content class="user-card__content">
+    <img
+      class="user-card__avatar"
+      [ngSrc]="avatarUrl"
+      [alt]="'GitHub user ' + login + ' avatar'"
+      width="150"
+      height="150"
+      sizes="100vw"
+    />
+
+    <h3 class="user-card__title truncated">{{ login | titlecase }}</h3>
+  </mat-card-content>
+</mat-card>

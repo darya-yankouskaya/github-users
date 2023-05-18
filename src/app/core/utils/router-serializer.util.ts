@@ -30,8 +30,6 @@ export class CustomRouterStateSerializer
       root: { queryParams },
     } = routerState;
 
-    console.log({ url, params, queryParams });
-
     // Only return an object including the URL, params and query params
     // instead of the entire snapshot
     return { url, params, queryParams };

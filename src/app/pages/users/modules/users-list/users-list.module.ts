@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { UsersListComponent } from './users-list.component';
 import { RouterModule, Routes } from '@angular/router';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgOptimizedImage } from '@angular/common';
+import { UsersListComponent } from './users-list.component';
+import { SharedModule } from '../../../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -17,6 +19,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [UsersListComponent],
-  imports: [RouterModule.forChild(routes), SharedModule],
+  imports: [
+    RouterModule.forChild(routes),
+    SharedModule,
+    ReactiveFormsModule,
+    NgOptimizedImage,
+  ],
 })
 export class UsersListModule {}
