@@ -4,10 +4,11 @@
   </mat-card-header>
   <mat-card-content>
     <ul class="user-followers__list">
-      <li *ngFor="let follower of followers" class="user-followers__list-item">
+      <li *ngFor="let follower of followers">
         <app-user-card
           [avatarUrl]="follower.avatarUrl"
           [login]="follower.login"
+          [size]="80"
         ></app-user-card>
       </li>
     </ul>

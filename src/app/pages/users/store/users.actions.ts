@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { User, UserDetails } from '../models/user.model';
+import { UserRepo } from '../models/user-repo.model';
 
 const userActionsPrefix = '[Solution API]';
 
@@ -31,4 +32,14 @@ export const getUserFollowers = createAction(
 export const getUserFollowersSuccess = createAction(
   `${userActionsPrefix} Get User Followers Success`,
   props<{ payload: User[] }>(),
+);
+
+export const getUserRepos = createAction(
+  `${userActionsPrefix} Get User Repos`,
+  props<{ payload: string }>(),
+);
+
+export const getUserReposSuccess = createAction(
+  `${userActionsPrefix} Get User Repos Success`,
+  props<{ payload: UserRepo[] }>(),
 );

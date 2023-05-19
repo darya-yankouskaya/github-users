@@ -34,3 +34,8 @@ export const selectUserFollowers = createSelector(
   selectUsersFeature,
   (state: UsersState) => state.userFollowers,
 );
+
+export const selectUserRepos = createSelector(
+  selectUsersFeature,
+  (state: UsersState) => state.userRepos,
+);

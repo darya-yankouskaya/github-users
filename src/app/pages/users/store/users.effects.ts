@@ -7,11 +7,13 @@ import {
   getUserDetailsSuccess,
   getUserFollowers,
   getUserFollowersSuccess,
+  getUserRepos,
+  getUserReposSuccess,
   getUsers,
   getUsersSuccess,
 } from './users.actions';
 import { EMPTY, catchError, map, switchMap, withLatestFrom } from 'rxjs';
-import { UsersApiService } from 'src/app/shared/services/users-api.service';
+import { UsersApiService } from 'src/app/pages/users/services/users-api.service';
 import { selectParams } from 'src/app/shared/store/router/router.selectors';
 
 @Injectable()
@@ -37,6 +39,7 @@ export class UsersEffects {
           switchMap(userDetails => [
             getUserDetailsSuccess({ payload: userDetails }),
             getUserFollowers({ payload: userDetails.followersUrl }),
+            getUserRepos({ payload: userDetails.reposUrl }),
           ]),
           catchError(() => EMPTY),
         ),
@@ -50,6 +53,18 @@ export class UsersEffects {
       switchMap(({ payload }) =>
         this.usersApiService.getUserFollowers(payload).pipe(
           map(userDetails => getUserFollowersSuccess({ payload: userDetails })),
+          catchError(() => EMPTY),
+        ),
+      ),
+    ),
+  );
+
+  getUserRepos$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getUserRepos),
+      switchMap(({ payload }) =>
+        this.usersApiService.getUserRepos(payload).pipe(
+          map(userRepos => getUserReposSuccess({ payload: userRepos })),
           catchError(() => EMPTY),
         ),
       ),

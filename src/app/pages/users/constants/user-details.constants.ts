@@ -4,7 +4,7 @@ export const USER_STATISTIC_DATA: ReadonlyArray<UserDetailsStatistic> = [
   {
     title: 'Puplic Repos: ',
     field: 'publicRepos',
-    backgroundColor: 'rgb(134 95 223)',
+    backgroundColor: 'rgb(149 112 236)',
   },
   {
     title: 'Puplic Gists: ',
