@@ -12,7 +12,8 @@ import {
   selectUserFollowers,
   selectUserRepos,
 } from '../../store/users.selectors';
-import { USER_STATISTIC_DATA } from '../../constants/user-details.constants';
+import { ActivatedRoute } from '@angular/router';
+import { untilDestroy } from '../../../../shared/utils/until-destroy';
 
 @Component({
   selector: 'app-user-details',
@@ -21,18 +22,28 @@ import { USER_STATISTIC_DATA } from '../../constants/user-details.constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
-  public readonly statisticsData = USER_STATISTIC_DATA;
   public userDetails$ = this.store.select(selectUserDetails);
   public userFollowers$ = this.store.select(selectUserFollowers);
   public userRepos$ = this.store.select(selectUserRepos);
+  private destroy = untilDestroy();
 
-  constructor(private store: Store<UsersState>) {}
+  constructor(
+    private store: Store<UsersState>,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(getUserDetails());
+    this.subscribeOnUserChange();
   }
 
   ngOnDestroy(): void {
     this.store.dispatch(resetSelectedUser());
+  }
+
+  private subscribeOnUserChange(): void {
+    this.route.params.pipe(this.destroy()).subscribe(() => {
+      this.store.dispatch(resetSelectedUser());
+      this.store.dispatch(getUserDetails());
+    });
   }
 }

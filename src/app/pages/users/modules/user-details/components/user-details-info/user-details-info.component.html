@@ -1,0 +1,61 @@
+<mat-card>
+  <h1 class="visually-hidden">User Details</h1>
+
+  <mat-card-content class="user-details-info">
+    <h2 class="visually-hidden">{{ userDetails.name }} Main Info</h2>
+    <app-user-card
+      class="user-details-info__user-card"
+      [avatarUrl]="userDetails.avatarUrl"
+      [login]="userDetails.login"
+      [description]="userDetails.bio || undefined"
+    ></app-user-card>
+
+    <section class="user-details-info__main-info">
+      <h2>{{ userDetails.name }}</h2>
+      <ul class="user-details-info__list">
+        <li *ngFor="let item of statisticsData">
+          <app-info-bar
+            [info]="item.title + userDetails[item.field]"
+            [style.--info-bar-bgr]="item.backgroundColor"
+          ></app-info-bar>
+        </li>
+      </ul>
+
+      <ul class="user-details-info__info-list">
+        <li class="user-details-info__info-list-item">
+          <span class="user-details-info__info-list-title">Company: </span>
+          <span *ngIf="userDetails.company; else emptyValue" class="truncated">
+            {{ userDetails.company }}
+          </span>
+        </li>
+        <li class="user-details-info__info-list-item">
+          <span class="user-details-info__info-list-title">Location: </span>
+          <span *ngIf="userDetails.location; else emptyValue" class="truncated">
+            {{ userDetails.location }}
+          </span>
+        </li>
+        <li class="user-details-info__info-list-item">
+          <span class="user-details-info__info-list-title">Blog: </span>
+          <span *ngIf="userDetails.blog; else emptyValue" class="truncated">
+            <a [href]="userDetails.blog" target="”_blank”">
+              {{ userDetails.blog }}
+            </a>
+          </span>
+        </li>
+        <li class="user-details-info__info-list-item">
+          <span class="user-details-info__info-list-title">Member Since: </span>
+          <span
+            *ngIf="userDetails.createdAt; else emptyValue"
+            class="truncated"
+          >
+            {{ userDetails.createdAt | date }}
+          </span>
+        </li>
+      </ul>
+    </section>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #emptyValue>
+  <app-info-bar [info]="'Not Available'"></app-info-bar>
+</ng-template>

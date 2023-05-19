@@ -30,5 +30,10 @@
 
   &__item {
     min-width: 200px;
+    transition: transform var(--transition);
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }

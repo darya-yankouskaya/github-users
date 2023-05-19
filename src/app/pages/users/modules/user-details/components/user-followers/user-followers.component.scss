@@ -22,4 +22,12 @@
       grid-template-columns: repeat(6, 1fr);
     }
   }
+
+  &__list-item {
+    transition: transform var(--transition);
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }

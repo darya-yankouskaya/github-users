@@ -1,58 +1,9 @@
-<section class="user-details__wrapper">
-  <mat-card *ngIf="userDetails$ | async as userDetails">
-    <h1 class="visually-hidden">User Details</h1>
-
-    <mat-card-content class="user-details">
-      <h2 class="visually-hidden">{{ userDetails.name }} Main Info</h2>
-      <app-user-card
-        class="user-details__user-card"
-        [avatarUrl]="userDetails.avatarUrl"
-        [login]="userDetails.login"
-        [description]="userDetails.bio || undefined"
-      ></app-user-card>
-
-      <section class="user-details__main-info">
-        <h2>{{ userDetails.name }}</h2>
-        <ul class="user-details__list">
-          <li *ngFor="let item of statisticsData">
-            <app-info-bar
-              [info]="item.title + userDetails[item.field]"
-              [style.--info-bar-bgr]="item.backgroundColor"
-            ></app-info-bar>
-          </li>
-        </ul>
-
-        <ul class="user-details__info-list">
-          <li class="user-details__info-list-item">
-            <span class="user-details__info-list-title">Company: </span>
-            <span *ngIf="userDetails.company; else emptyValue">
-              {{ userDetails.company }}
-            </span>
-          </li>
-          <li class="user-details__info-list-item">
-            <span class="user-details__info-list-title">Location: </span>
-            <span *ngIf="userDetails.location; else emptyValue">
-              {{ userDetails.location }}
-            </span>
-          </li>
-          <li class="user-details__info-list-item">
-            <span class="user-details__info-list-title">Blog: </span>
-            <span *ngIf="userDetails.blog; else emptyValue" class="truncated">
-              <a [href]="userDetails.blog" target="”_blank”">
-                {{ userDetails.blog }}
-              </a>
-            </span>
-          </li>
-          <li class="user-details__info-list-item">
-            <span class="user-details__info-list-title">Member Since: </span>
-            <span *ngIf="userDetails.createdAt; else emptyValue">
-              {{ userDetails.createdAt | date }}
-            </span>
-          </li>
-        </ul>
-      </section>
-    </mat-card-content>
-  </mat-card>
+<section class="user-details">
+  <app-user-details-info
+    *ngIf="userDetails$ | async as userDetails"
+    [userDetails]="userDetails"
+  >
+  </app-user-details-info>
 
   <ng-container *ngIf="userFollowers$ | async as followers">
     <app-user-followers
@@ -65,7 +16,3 @@
     <app-user-repos *ngIf="repos.length" [repos]="repos"></app-user-repos>
   </ng-container>
 </section>
-
-<ng-template #emptyValue>
-  <app-info-bar [info]="'Not Available'"></app-info-bar>
-</ng-template>
