@@ -9,15 +9,19 @@ import {
 
 export const routerAnimation = trigger('routerTransition', [
   transition('* <=> *', [
-    query(':enter, :leave', style({ position: 'fixed', width: '100%' }), {
-      optional: true,
-    }),
+    query(
+      ':enter, :leave',
+      style({ position: 'fixed', maxWidth: '1200px', width: '100%' }),
+      {
+        optional: true,
+      },
+    ),
     group([
       query(
         ':enter',
         [
-          style({ transform: 'translateX(100%)' }),
-          animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' })),
+          style({ transform: 'translateX(150%)' }),
+          animate('1000ms ease', style({ transform: 'translateX(0%)' })),
         ],
         { optional: true },
       ),
@@ -25,10 +29,7 @@ export const routerAnimation = trigger('routerTransition', [
         ':leave',
         [
           style({ transform: 'translateX(0%)' }),
-          animate(
-            '0.5s ease-in-out',
-            style({ transform: 'translateX(-100%)' }),
-          ),
+          animate('1000ms ease', style({ transform: 'translateX(-150%)' })),
         ],
         { optional: true },
       ),
