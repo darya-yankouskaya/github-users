@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './shared/layout/layout.module';
 
@@ -8,6 +9,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, LayoutModule],
       declarations: [AppComponent],
+      providers: [provideMockStore()],
     }),
   );
 

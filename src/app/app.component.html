@@ -3,4 +3,7 @@
   <div class="app-container">
     <router-outlet></router-outlet>
   </div>
+  <div class="spinner" *ngIf="isSpinnerVisible$ | async">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
 </main>
