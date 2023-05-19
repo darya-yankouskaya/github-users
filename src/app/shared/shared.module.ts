@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { NgOptimizedImage } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
 
@@ -19,6 +21,8 @@ const MATERIAL_MODULES = [
   MatInputModule,
   MatCardModule,
   MatListModule,
+  MatTooltipModule,
+  MatButtonModule,
 ];
 
 const SHARED_COMPONENT = [UserCardComponent, InfoBarComponent];

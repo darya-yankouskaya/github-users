@@ -58,7 +58,7 @@ export class UsersApiService {
       openIssuesCount: repo.open_issues_count,
       stargazersCount: repo.stargazers_count,
       updatedAt: repo.updated_at,
-      url: repo.url,
+      htmlUrl: repo.html_url,
       visibility: repo.visibility,
       watchersCount: repo.watchers_count,
     }));

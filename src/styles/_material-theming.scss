@@ -50,3 +50,7 @@ $github-users-dark-theme: mat.define-dark-theme(
 .theme-dark {
   @include mat.all-component-themes($github-users-dark-theme);
 }
+
+.primary-color {
+  color: mat.get-color-from-palette($github-users-primary, 400);
+}

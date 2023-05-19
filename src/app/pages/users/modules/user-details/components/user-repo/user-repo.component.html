@@ -1,0 +1,33 @@
+<section class="user-repo">
+  <div class="user-repo__info">
+    <div class="user-repo__info-row">
+      <a [href]="repo.htmlUrl" target="_blank">
+        <h3 class="primary-color">{{ repo.name }}</h3>
+      </a>
+
+      <span class="user-repo__visibility">
+        {{ repo.visibility | titlecase }}
+      </span>
+    </div>
+    <div class="user-repo__info-row">
+      <div *ngIf="repo.language; else emptyValue" class="user-repo__language">
+        <mat-icon color="primary">trip_origin</mat-icon>
+        {{ repo.language }}
+      </div>
+      <span> Updated on {{ repo.updatedAt | date }}</span>
+    </div>
+  </div>
+
+  <ul class="user-repo__statistic">
+    <li *ngFor="let item of userRepoData" class="user-repo__statistic-item">
+      <app-info-bar
+        [info]="item.title + repo[item.field]"
+        [style.--info-bar-bgr]="item.backgroundColor"
+      ></app-info-bar>
+    </li>
+  </ul>
+</section>
+
+<ng-template #emptyValue>
+  <app-info-bar [info]="'Not Available'"></app-info-bar>
+</ng-template>

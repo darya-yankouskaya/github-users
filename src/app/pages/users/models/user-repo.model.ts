@@ -10,9 +10,15 @@ export interface UserRepo {
   openIssuesCount: number;
   stargazersCount: number;
   updatedAt: string;
-  url: string;
+  htmlUrl: string;
   visibility: UserRepoVisibility;
   watchersCount: number;
+}
+
+export interface UserRepoStatistic {
+  title: string;
+  field: keyof UserRepo;
+  backgroundColor: string;
 }
 
 export interface UserRepoDto {

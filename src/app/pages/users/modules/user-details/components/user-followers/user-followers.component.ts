@@ -8,5 +8,5 @@ import { User } from '../../../../models/user.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserFollowersComponent {
-  @Input() followers: User[] = [];
+  @Input({ required: true }) followers!: User[];
 }

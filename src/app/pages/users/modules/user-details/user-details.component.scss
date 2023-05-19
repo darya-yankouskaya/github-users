@@ -1,7 +1,5 @@
 @use 'mixins.scss' as mixin;
 
-$border: 1px solid rgb(195, 192, 192);
-
 .user-details {
   display: flex;
   flex-direction: column;
@@ -43,7 +41,7 @@ $border: 1px solid rgb(195, 192, 192);
   }
 
   &__info-list {
-    border: $border;
+    border: var(--border-gray);
     border-radius: 4px;
   }
 
@@ -57,7 +55,7 @@ $border: 1px solid rgb(195, 192, 192);
     box-sizing: border-box;
 
     &:not(:last-of-type) {
-      border-bottom: $border;
+      border-bottom: var(--border-gray);
     }
   }
 

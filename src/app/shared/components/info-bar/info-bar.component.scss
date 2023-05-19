@@ -3,4 +3,8 @@
   border-radius: 8px;
   background-color: var(--info-bar-bgr, rgb(214, 149, 29));
   text-align: center;
+
+  &__info {
+    display: block;
+  }
 }

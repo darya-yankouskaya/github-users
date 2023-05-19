@@ -60,6 +60,10 @@
       [followers]="followers"
     ></app-user-followers>
   </ng-container>
+
+  <ng-container *ngIf="userRepos$ | async as repos">
+    <app-user-repos *ngIf="repos.length" [repos]="repos"></app-user-repos>
+  </ng-container>
 </section>
 
 <ng-template #emptyValue>
