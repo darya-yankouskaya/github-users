@@ -5,7 +5,7 @@
   <mat-card-content>
     <ul class="user-followers__list">
       <li *ngFor="let follower of followers" class="user-followers__list-item">
-        <a [routerLink]="['../', follower.login]">
+        <a [routerLink]="['../', follower.login]" queryParamsHandling="merge">
           <app-user-card
             [avatarUrl]="follower.avatarUrl"
             [login]="follower.login"

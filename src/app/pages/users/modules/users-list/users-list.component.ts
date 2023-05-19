@@ -8,7 +8,8 @@ import { getUsers } from '../../store/users.actions';
 import { selectFilteredUsers } from '../../store/users.selectors';
 import { untilDestroy } from '../../../../shared/utils/until-destroy';
 import { QueryParams } from '../../../../shared/enums/query-params.enum';
-import { selectQueryParams } from 'src/app/shared/store/router/router.selectors';
+import { selectQueryParams } from '../../../../shared/store/router/router.selectors';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-users-list',
@@ -32,6 +33,14 @@ export class UsersListComponent implements OnInit {
     this.store.dispatch(getUsers());
     this.checkInitSearchValue();
     this.subscribeOnSearchChange();
+  }
+
+  public resetSearchControl(): void {
+    this.searchControl.reset();
+  }
+
+  public userTrackBy(index: number, user: User) {
+    return user.id;
   }
 
   private subscribeOnSearchChange(): void {

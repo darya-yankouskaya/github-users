@@ -1,7 +1,12 @@
 <header class="header">
   <mat-toolbar color="primary">
     <div class="header__content app-container">
-      <button mat-icon-button routerLink="/" aria-label="Navigate to User List">
+      <button
+        mat-icon-button
+        routerLink="/"
+        aria-label="Navigate to User List"
+        queryParamsHandling="merge"
+      >
         <mat-icon>home</mat-icon>
       </button>
       <mat-slide-toggle

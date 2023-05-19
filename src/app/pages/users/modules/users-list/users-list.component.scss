@@ -6,8 +6,21 @@
   row-gap: 16px;
   padding: 24px;
 
-  &__search-field {
+  &__search {
     max-width: 500px;
+    display: flex;
+  }
+
+  &__search-field {
+    flex: 1;
+  }
+
+  &__clear-search-btn {
+    margin: 3px;
+
+    &--hidden {
+      visibility: hidden;
+    }
   }
 
   &__list {
