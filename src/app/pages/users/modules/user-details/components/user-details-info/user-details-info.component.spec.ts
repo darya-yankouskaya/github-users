@@ -1,35 +1,33 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { By } from '@angular/platform-browser';
 import { UserDetailsInfoComponent } from './user-details-info.component';
 import { SharedModule } from '../../../../../../shared/shared.module';
-import { UserDetails } from 'src/app/pages/users/models/user.model';
-import { By } from '@angular/platform-browser';
-import { InfoBarComponent } from 'src/app/shared/components/info-bar/info-bar.component';
-import { UserCardComponent } from 'src/app/shared/components/user-card/user-card.component';
-
-const USER_DETAILS_MOCK: UserDetails = {
-  avatarUrl: 'www.test.jpg',
-  bio: '',
-  blog: null,
-  company: null,
-  createdAt: new Date().toISOString(),
-  email: null,
-  followers: 1,
-  followersUrl: 'www.test.com',
-  following: 1,
-  hireable: null,
-  id: 1,
-  location: null,
-  login: 'test',
-  name: 'User Name',
-  publicRepos: 1,
-  publicGists: 1,
-  reposUrl: 'www.test.com',
-  twitterUsername: null,
-  updatedAt: new Date().toISOString(),
-};
+import { UserDetails } from '../../../../models/user.model';
+import { InfoBarComponent } from '../../../../../..//shared/components/info-bar/info-bar.component';
+import { UserCardComponent } from '../../../../../..//shared/components/user-card/user-card.component';
 
 describe('UserDetailsInfoComponent', () => {
+  const USER_DETAILS_MOCK: UserDetails = {
+    avatarUrl: 'www.test.jpg',
+    bio: '',
+    blog: null,
+    company: null,
+    createdAt: new Date().toISOString(),
+    email: null,
+    followers: 1,
+    followersUrl: 'www.test.com',
+    following: 1,
+    hireable: null,
+    id: 1,
+    location: null,
+    login: 'test',
+    name: 'User Name',
+    publicRepos: 1,
+    publicGists: 1,
+    reposUrl: 'www.test.com',
+    twitterUsername: null,
+    updatedAt: new Date().toISOString(),
+  };
   let component: UserDetailsInfoComponent;
   let fixture: ComponentFixture<UserDetailsInfoComponent>;
 
