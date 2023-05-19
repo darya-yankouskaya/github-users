@@ -1,6 +1,6 @@
 @use 'mixins.scss' as mixin;
 
-$user-card-width: 300px;
+$user-card-width: 250px;
 
 .user-details-info {
   display: flex;
@@ -14,7 +14,7 @@ $user-card-width: 300px;
   }
 
   &__user-card {
-    width: 300px;
+    width: $user-card-width;
     flex-shrink: 0;
     align-self: center;
   }
@@ -39,6 +39,10 @@ $user-card-width: 300px;
     @include mixin.respond-to('small') {
       flex-direction: row;
     }
+  }
+
+  &__list-item {
+    max-width: 100%;
   }
 
   &__info-list {

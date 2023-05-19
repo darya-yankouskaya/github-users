@@ -17,7 +17,7 @@ const routes: Routes = [
       import('./modules/user-details/user-details.module').then(
         m => m.UserDetailsModule,
       ),
-    data: { animation: 'userDetailsPage' },
+    data: { animation: 'userDetailsPage', isNotReusable: true },
   },
   {
     path: '**',

@@ -11,9 +11,12 @@
     ></app-user-card>
 
     <section class="user-details-info__main-info">
-      <h2>{{ userDetails.name }}</h2>
+      <h2 class="truncated">{{ userDetails.name }}</h2>
       <ul class="user-details-info__list">
-        <li *ngFor="let item of statisticsData">
+        <li
+          *ngFor="let item of statisticsData"
+          class="user-details-info__list-item"
+        >
           <app-info-bar
             [info]="item.title + userDetails[item.field]"
             [style.--info-bar-bgr]="item.backgroundColor"

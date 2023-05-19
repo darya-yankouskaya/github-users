@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouteReuseStrategy } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
@@ -20,6 +21,7 @@ import { environment } from '../environments/environment';
 import { LoadingSpinnerInterceptor } from './core/interceptors/loading-spinner.interceptor';
 import { SharedEffects } from './shared/store/shared.effects';
 import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
+import { CustomRouteReuseStrategy } from './core/classes/custom-route-reuse-strategy.class';
 
 @NgModule({
   declarations: [AppComponent],
@@ -58,6 +60,10 @@ import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true,
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomRouteReuseStrategy,
     },
   ],
   bootstrap: [AppComponent],
