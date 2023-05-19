@@ -30,7 +30,7 @@ $user-card-width: 250px;
     }
   }
 
-  &__list {
+  &__statistic-list {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -41,7 +41,7 @@ $user-card-width: 250px;
     }
   }
 
-  &__list-item {
+  &__statistic-list-item {
     max-width: 100%;
   }
 

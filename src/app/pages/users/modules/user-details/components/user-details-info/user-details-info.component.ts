@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { UserDetails } from '../../../../models/user.model';
-import { USER_STATISTIC_DATA } from '../../../../constants/user-details.constants';
+import {
+  USER_MAIN_INFO_DATA,
+  USER_STATISTIC_DATA,
+} from '../../../../constants/user-details.constants';
 
 @Component({
   selector: 'app-user-details-info',
@@ -12,4 +15,5 @@ export class UserDetailsInfoComponent {
   @Input({ required: true }) userDetails!: UserDetails;
 
   public readonly statisticsData = USER_STATISTIC_DATA;
+  public readonly userMainInfoData = USER_MAIN_INFO_DATA;
 }

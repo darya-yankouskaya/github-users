@@ -10,5 +10,5 @@ export class UserCardComponent {
   @Input({ required: true }) avatarUrl!: string;
   @Input({ required: true }) login!: string;
   @Input() size = 150;
-  @Input() description: string | undefined;
+  @Input() description: string | null = null;
 }

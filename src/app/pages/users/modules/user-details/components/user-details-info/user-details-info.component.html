@@ -2,20 +2,19 @@
   <h1 class="visually-hidden">User Details</h1>
 
   <mat-card-content class="user-details-info">
-    <h2 class="visually-hidden">{{ userDetails.name }} Main Info</h2>
     <app-user-card
       class="user-details-info__user-card"
       [avatarUrl]="userDetails.avatarUrl"
       [login]="userDetails.login"
-      [description]="userDetails.bio || undefined"
+      [description]="userDetails.bio"
     ></app-user-card>
 
     <section class="user-details-info__main-info">
       <h2 class="truncated">{{ userDetails.name }}</h2>
-      <ul class="user-details-info__list">
+      <ul class="user-details-info__statistic-list">
         <li
           *ngFor="let item of statisticsData"
-          class="user-details-info__list-item"
+          class="user-details-info__statistic-list-item"
         >
           <app-info-bar
             [info]="item.title + userDetails[item.field]"
@@ -25,34 +24,31 @@
       </ul>
 
       <ul class="user-details-info__info-list">
-        <li class="user-details-info__info-list-item">
-          <span class="user-details-info__info-list-title">Company: </span>
-          <span *ngIf="userDetails.company; else emptyValue" class="truncated">
-            {{ userDetails.company }}
-          </span>
-        </li>
-        <li class="user-details-info__info-list-item">
-          <span class="user-details-info__info-list-title">Location: </span>
-          <span *ngIf="userDetails.location; else emptyValue" class="truncated">
-            {{ userDetails.location }}
-          </span>
-        </li>
-        <li class="user-details-info__info-list-item">
-          <span class="user-details-info__info-list-title">Blog: </span>
-          <span *ngIf="userDetails.blog; else emptyValue" class="truncated">
-            <a [href]="userDetails.blog" target="”_blank”">
-              {{ userDetails.blog }}
-            </a>
-          </span>
-        </li>
-        <li class="user-details-info__info-list-item">
-          <span class="user-details-info__info-list-title">Member Since: </span>
-          <span
-            *ngIf="userDetails.createdAt; else emptyValue"
-            class="truncated"
-          >
-            {{ userDetails.createdAt | date }}
-          </span>
+        <li
+          *ngFor="let item of userMainInfoData"
+          class="user-details-info__info-list-item"
+        >
+          <span class="user-details-info__info-list-title">{{
+            item.title
+          }}</span>
+          <ng-container *ngIf="userDetails[item.field]; else emptyValue">
+            <ng-container [ngSwitch]="item.field">
+              <span *ngSwitchCase="'createdAt'" class="truncated">
+                {{ userDetails.createdAt | date }}
+              </span>
+              <span *ngSwitchCase="'blog'" class="truncated">
+                <a
+                  [href]="userDetails.blog"
+                  class="primary-color"
+                  target="”_blank”"
+                >
+                  {{ userDetails.blog }}
+                </a>
+              </span>
+
+              <div *ngSwitchDefault>{{ userDetails[item.field] }}</div>
+            </ng-container>
+          </ng-container>
         </li>
       </ul>
     </section>

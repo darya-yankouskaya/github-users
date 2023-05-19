@@ -1,4 +1,4 @@
-import { UserDetailsStatistic } from '../models/user.model';
+import { UserDetailsStatistic, UserMainInfoData } from '../models/user.model';
 
 export const USER_STATISTIC_DATA: ReadonlyArray<UserDetailsStatistic> = [
   {
@@ -20,5 +20,24 @@ export const USER_STATISTIC_DATA: ReadonlyArray<UserDetailsStatistic> = [
     title: 'Puplic Following: ',
     field: 'following',
     backgroundColor: 'rgb(188 143 207)',
+  },
+];
+
+export const USER_MAIN_INFO_DATA: ReadonlyArray<UserMainInfoData> = [
+  {
+    title: 'Company: ',
+    field: 'company',
+  },
+  {
+    title: 'Location: ',
+    field: 'location',
+  },
+  {
+    title: 'Blog: ',
+    field: 'blog',
+  },
+  {
+    title: 'Member Since: ',
+    field: 'createdAt',
   },
 ];

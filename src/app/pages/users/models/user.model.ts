@@ -29,6 +29,11 @@ export interface UserDetailsStatistic {
   backgroundColor: string;
 }
 
+export interface UserMainInfoData {
+  title: string;
+  field: keyof UserDetails;
+}
+
 export interface UserDto {
   avatar_url: string;
   events_url: string;
