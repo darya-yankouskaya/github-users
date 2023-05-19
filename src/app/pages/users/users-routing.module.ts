@@ -9,6 +9,7 @@ const routes: Routes = [
         m => m.UsersListModule,
       ),
     pathMatch: 'full',
+    data: { animation: 'usersListPage' },
   },
   {
     path: ':username',
@@ -16,6 +17,7 @@ const routes: Routes = [
       import('./modules/user-details/user-details.module').then(
         m => m.UserDetailsModule,
       ),
+    data: { animation: 'userDetailsPage' },
   },
   {
     path: '**',
