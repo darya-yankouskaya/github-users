@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
@@ -17,6 +18,8 @@ import { sharedFeatureKey } from './shared/store/shared.state';
 import { sharedReducer } from './shared/store/shared.reducers';
 import { environment } from '../environments/environment';
 import { LoadingSpinnerInterceptor } from './core/interceptors/loading-spinner.interceptor';
+import { SharedEffects } from './shared/store/shared.effects';
+import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +29,7 @@ import { LoadingSpinnerInterceptor } from './core/interceptors/loading-spinner.i
     BrowserModule,
     HttpClientModule,
     LayoutModule,
-    EffectsModule.forRoot(),
+    EffectsModule.forRoot([SharedEffects]),
     StoreModule.forRoot({
       [routerFeatureKey]: routerReducer,
       [sharedFeatureKey]: sharedReducer,
@@ -38,6 +41,7 @@ import { LoadingSpinnerInterceptor } from './core/interceptors/loading-spinner.i
       logOnly: !environment.production,
     }),
     MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
   providers: [
     {
@@ -48,6 +52,11 @@ import { LoadingSpinnerInterceptor } from './core/interceptors/loading-spinner.i
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingSpinnerInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true,
     },
   ],
