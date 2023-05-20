@@ -22,4 +22,10 @@ describe('UserCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title with user login', () => {
+    const elem = fixture.nativeElement.querySelector('h3.user-card__title');
+
+    expect(elem.textContent).toEqual(component.login);
+  });
 });

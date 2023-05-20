@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component, Input } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { UserDetailsComponent } from './user-details.component';
 import {
   selectUserDetails,
@@ -13,6 +13,9 @@ import { User, UserDetails } from '../../models/user.model';
 import { UserRepo } from '../../models/user-repo.model';
 import { UserRepoVisibility } from '../../enums/user-repo.enum';
 import { SharedModule } from '../../../../shared/shared.module';
+import { NoDataFoundComponent } from 'src/app/shared/components/no-data-found/no-data-found.component';
+import { UsersState } from '../../store/users.state';
+import { MemoizedSelector, Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-user-details-info',
@@ -87,6 +90,9 @@ describe('UserDetailsComponent', () => {
   ];
   let component: UserDetailsComponent;
   let fixture: ComponentFixture<UserDetailsComponent>;
+  let mockStore: MockStore<UsersState>;
+  let mockSelectUserFollowers: MemoizedSelector<UsersState, User[]>;
+  let mockSelectUserRepos: MemoizedSelector<UsersState, UserRepo[]>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -103,14 +109,6 @@ describe('UserDetailsComponent', () => {
               selector: selectUserDetails,
               value: USER_DETAILS_MOCK,
             },
-            {
-              selector: selectUserFollowers,
-              value: FOLLOWERS_MOCK,
-            },
-            {
-              selector: selectUserRepos,
-              value: REPOS_MOCK,
-            },
           ],
         }),
       ],
@@ -118,6 +116,12 @@ describe('UserDetailsComponent', () => {
     });
     fixture = TestBed.createComponent(UserDetailsComponent);
     component = fixture.componentInstance;
+    mockStore = TestBed.inject(Store<UsersState>) as MockStore<UsersState>;
+    mockSelectUserFollowers = mockStore.overrideSelector(
+      selectUserFollowers,
+      [],
+    );
+    mockSelectUserRepos = mockStore.overrideSelector(selectUserRepos, []);
     fixture.detectChanges();
   });
 
@@ -135,21 +139,59 @@ describe('UserDetailsComponent', () => {
     expect(userDetailsComponent.userDetails).toEqual(USER_DETAILS_MOCK);
   });
 
-  it("should render all user's followers", () => {
-    const followersDE = fixture.debugElement.query(
-      By.directive(UserFollowersComponent),
+  it('should render followers title', () => {
+    const elem: HTMLElement = fixture.nativeElement.querySelector(
+      'h2.user-details__title--followers',
     );
 
-    expect(followersDE).toBeTruthy();
-    expect(followersDE.componentInstance.followers).toEqual(FOLLOWERS_MOCK);
+    expect(elem.textContent).toContain('Followers');
   });
 
-  it("should render all user's repo", () => {
-    const repossDE = fixture.debugElement.query(
-      By.directive(UserReposComponent),
+  it('should render repos title', () => {
+    const elem: HTMLElement = fixture.nativeElement.querySelector(
+      'h2.user-details__title--repos',
     );
 
-    expect(repossDE).toBeTruthy();
-    expect(repossDE.componentInstance.repos).toEqual(REPOS_MOCK);
+    expect(elem.textContent).toContain('Repositories');
+  });
+
+  it('should render no data found or user followers', () => {
+    const followersDE = fixture.debugElement.query(
+      By.css('.user-details__followers'),
+    );
+    const noDataDE = followersDE.query(By.directive(NoDataFoundComponent));
+
+    expect(noDataDE).toBeTruthy();
+
+    mockSelectUserFollowers.setResult(FOLLOWERS_MOCK);
+    mockStore.refreshState();
+    fixture.detectChanges();
+
+    const userFollowers: UserFollowersComponent = fixture.debugElement.query(
+      By.directive(UserFollowersComponent),
+    ).componentInstance;
+
+    expect(userFollowers).toBeTruthy();
+    expect(userFollowers.followers).toEqual(FOLLOWERS_MOCK);
+  });
+
+  it('should render no data found or user repos', () => {
+    const followersDE = fixture.debugElement.query(
+      By.css('.user-details__repos'),
+    );
+    const noDataDE = followersDE.query(By.directive(NoDataFoundComponent));
+
+    expect(noDataDE).toBeTruthy();
+
+    mockSelectUserRepos.setResult(REPOS_MOCK);
+    mockStore.refreshState();
+    fixture.detectChanges();
+
+    const userRepos: UserReposComponent = fixture.debugElement.query(
+      By.directive(UserReposComponent),
+    ).componentInstance;
+
+    expect(userRepos).toBeTruthy();
+    expect(userRepos.repos).toEqual(REPOS_MOCK);
   });
 });

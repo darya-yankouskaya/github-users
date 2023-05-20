@@ -37,7 +37,7 @@ export class UsersEffects {
       ofType(getUserDetails),
       concatLatestFrom(() => [this.store.select(selectParams)]),
       switchMap(([_, params]) =>
-        this.usersApiService.getUserByUsername(params['username']).pipe(
+        this.usersApiService.getUserDetailsByUsername(params['username']).pipe(
           switchMap(userDetails => [
             getUserDetailsSuccess({ payload: userDetails }),
             getUserFollowers({ payload: userDetails.followersUrl }),

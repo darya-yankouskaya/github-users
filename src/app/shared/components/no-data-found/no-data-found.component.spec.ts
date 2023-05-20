@@ -19,4 +19,12 @@ describe('NoDataFoundComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the image with correct alt text', () => {
+    const imageElement: HTMLImageElement = fixture.nativeElement.querySelector(
+      'img.no-data-found__image',
+    );
+    expect(imageElement).toBeTruthy();
+    expect(imageElement.alt).toBe('No Data Found');
+  });
 });

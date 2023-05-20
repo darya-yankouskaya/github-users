@@ -23,7 +23,7 @@ export class UsersApiService {
       .pipe(map(data => this.transformUserDtoToUser(data.items)));
   }
 
-  getUserByUsername(username: string): Observable<UserDetails> {
+  getUserDetailsByUsername(username: string): Observable<UserDetails> {
     return this.http
       .get<UserDetailsDto>(`${environment.githubAPI}/users/${username}`)
       .pipe(map(details => this.transformUserDetailsDtoToUserDetails(details)));
