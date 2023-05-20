@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-content class="users-search">
+    <h2>Start Typing to Search...</h2>
+
+    <div class="users-search__search">
+      <mat-form-field appearance="outline" class="users-search__search-field">
+        <mat-label>{{ searchPlaceholder }}</mat-label>
+        <input
+          matInput
+          [placeholder]="searchPlaceholder"
+          [formControl]="searchControl"
+        />
+        <button
+          *ngIf="searchControl.value"
+          mat-icon-button
+          matSuffix
+          aria-label="Reset User Search"
+          (click)="resetSearchControl()"
+        >
+          <mat-icon color="primary">close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>

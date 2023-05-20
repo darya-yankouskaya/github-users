@@ -7,6 +7,7 @@ import {
   UserDetails,
   UserDetailsDto,
   UserDto,
+  UserSearchDto,
 } from '../models/user.model';
 import { UserRepo, UserRepoDto } from '../models/user-repo.model';
 
@@ -16,10 +17,10 @@ import { UserRepo, UserRepoDto } from '../models/user-repo.model';
 export class UsersApiService {
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
+  getUsers(query: string): Observable<User[]> {
     return this.http
-      .get<UserDto[]>(`${environment.githubAPI}/users`)
-      .pipe(map(users => this.transformUserDtoToUser(users)));
+      .get<UserSearchDto>(`${environment.githubAPI}/search/users?q=${query}`)
+      .pipe(map(data => this.transformUserDtoToUser(data.items)));
   }
 
   getUserByUsername(username: string): Observable<UserDetails> {

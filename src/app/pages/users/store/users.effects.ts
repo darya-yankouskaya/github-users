@@ -12,20 +12,22 @@ import {
   getUsers,
   getUsersSuccess,
 } from './users.actions';
-import { EMPTY, catchError, map, switchMap, withLatestFrom } from 'rxjs';
-import { UsersApiService } from 'src/app/pages/users/services/users-api.service';
-import { selectParams } from 'src/app/shared/store/router/router.selectors';
+import { EMPTY, catchError, map, of, switchMap } from 'rxjs';
+import { UsersApiService } from '../services/users-api.service';
+import { selectParams } from '../../../shared/store/router/router.selectors';
 
 @Injectable()
 export class UsersEffects {
   getUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getUsers),
-      switchMap(() =>
-        this.usersApiService.getUsers().pipe(
-          map(users => getUsersSuccess({ payload: users })),
-          catchError(() => EMPTY),
-        ),
+      switchMap(({ payload }) =>
+        payload
+          ? this.usersApiService.getUsers(payload).pipe(
+              map(users => getUsersSuccess({ payload: users })),
+              catchError(() => EMPTY),
+            )
+          : of(getUsersSuccess({ payload: [] })),
       ),
     ),
   );

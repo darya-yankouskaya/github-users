@@ -1,0 +1,14 @@
+.users-search {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+
+  &__search {
+    max-width: 500px;
+    display: flex;
+  }
+
+  &__search-field {
+    flex: 1;
+  }
+}

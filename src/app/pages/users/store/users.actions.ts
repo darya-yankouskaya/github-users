@@ -4,7 +4,10 @@ import { UserRepo } from '../models/user-repo.model';
 
 const userActionsPrefix = '[Solution API]';
 
-export const getUsers = createAction(`${userActionsPrefix} Get Users`);
+export const getUsers = createAction(
+  `${userActionsPrefix} Get Users`,
+  props<{ payload: string }>(),
+);
 
 export const getUsersSuccess = createAction(
   `${userActionsPrefix} Get Solution Success`,

@@ -3,24 +3,13 @@
 .user-list {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
+  row-gap: 32px;
   padding: 24px;
 
-  &__search {
-    max-width: 500px;
+  &__list-title {
     display: flex;
-  }
-
-  &__search-field {
-    flex: 1;
-  }
-
-  &__clear-search-btn {
-    margin: 3px;
-
-    &--hidden {
-      visibility: hidden;
-    }
+    gap: 8px;
+    align-items: center;
   }
 
   &__list {

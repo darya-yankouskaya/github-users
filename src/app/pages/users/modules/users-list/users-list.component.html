@@ -1,40 +1,23 @@
 <section class="user-list">
   <h1>Search Github Users</h1>
 
-  <div class="user-list__search">
-    <mat-form-field appearance="outline" class="user-list__search-field">
-      <mat-label>{{ searchPlaceholder }}</mat-label>
-      <input
-        matInput
-        [placeholder]="searchPlaceholder"
-        [formControl]="searchControl"
-      />
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+  <app-users-search></app-users-search>
 
-    <button
-      mat-icon-button
-      class="user-list__clear-search-btn"
-      [class.user-list__clear-search-btn--hidden]="!searchControl.value"
-      (click)="resetSearchControl()"
-    >
-      <mat-icon color="primary">close</mat-icon>
-    </button>
-  </div>
+  <ng-container *ngIf="users$ | async as users">
+    <h2 class="user-list__list-title" *ngIf="users.length">
+      Search Results
+      <mat-icon color="accent" [matTooltip]="'Max 30 Users'">info</mat-icon>
+    </h2>
 
-  <h2 class="visually-hidden">Github Users List</h2>
-
-  <ul class="user-list__list">
-    <li
-      *ngFor="let user of users$ | async; userTrackBy"
-      class="user-list__item"
-    >
-      <a [routerLink]="['./', user.login]" queryParamsHandling="merge">
-        <app-user-card
-          [avatarUrl]="user.avatarUrl"
-          [login]="user.login"
-        ></app-user-card>
-      </a>
-    </li>
-  </ul>
+    <ul class="user-list__list">
+      <li *ngFor="let user of users; userTrackBy" class="user-list__item">
+        <a [routerLink]="['./', user.login]" queryParamsHandling="merge">
+          <app-user-card
+            [avatarUrl]="user.avatarUrl"
+            [login]="user.login"
+          ></app-user-card>
+        </a>
+      </li>
+    </ul>
+  </ng-container>
 </section>

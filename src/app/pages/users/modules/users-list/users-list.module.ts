@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
 import { UsersListComponent } from './users-list.component';
 import { SharedModule } from '../../../../shared/shared.module';
+import { UsersSearchComponent } from './components/users-search/users-search.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [UsersListComponent],
+  declarations: [UsersListComponent, UsersSearchComponent],
   imports: [
     RouterModule.forChild(routes),
     SharedModule,

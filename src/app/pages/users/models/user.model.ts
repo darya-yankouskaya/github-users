@@ -34,6 +34,12 @@ export interface UserMainInfoData {
   field: keyof UserDetails;
 }
 
+export interface UserSearchDto {
+  incomplete_results: boolean;
+  items: UserDto[];
+  total_count: number;
+}
+
 export interface UserDto {
   avatar_url: string;
   events_url: string;
