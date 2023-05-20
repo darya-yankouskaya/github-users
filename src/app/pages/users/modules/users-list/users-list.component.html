@@ -4,12 +4,12 @@
   <app-users-search></app-users-search>
 
   <ng-container *ngIf="users$ | async as users">
-    <h2 class="user-list__list-title" *ngIf="users.length">
+    <h2 class="user-list__list-title">
       Search Results
       <mat-icon color="accent" [matTooltip]="'Max 30 Users'">info</mat-icon>
     </h2>
 
-    <ul class="user-list__list">
+    <ul class="user-list__list" *ngIf="users.length; else noDataFound">
       <li *ngFor="let user of users; userTrackBy" class="user-list__item">
         <a [routerLink]="['./', user.login]" queryParamsHandling="merge">
           <app-user-card
@@ -19,5 +19,9 @@
         </a>
       </li>
     </ul>
+
+    <ng-template #noDataFound>
+      <app-no-data-found></app-no-data-found>
+    </ng-template>
   </ng-container>
 </section>

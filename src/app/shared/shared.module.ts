@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
+import { NoDataFoundComponent } from './components/no-data-found/no-data-found.component';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -25,7 +26,11 @@ const MATERIAL_MODULES = [
   MatButtonModule,
 ];
 
-const SHARED_COMPONENT = [UserCardComponent, InfoBarComponent];
+const SHARED_COMPONENT = [
+  UserCardComponent,
+  InfoBarComponent,
+  NoDataFoundComponent,
+];
 
 @NgModule({
   imports: [CommonModule, ...MATERIAL_MODULES, NgOptimizedImage],
