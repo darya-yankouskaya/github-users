@@ -1,8 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UsersState, usersFeatureKey } from './users.state';
-import { selectQueryParams } from '../../../shared/store/router/router.selectors';
-import { User } from '../models/user.model';
-import { QueryParams } from '../../../shared/enums/query-params.enum';
 
 export const selectUsersFeature =
   createFeatureSelector<UsersState>(usersFeatureKey);

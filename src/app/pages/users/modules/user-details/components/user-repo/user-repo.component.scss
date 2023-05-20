@@ -49,6 +49,10 @@
     }
   }
 
+  &__language-icon {
+    flex-shrink: 0;
+  }
+
   &__statistic {
     display: grid;
     grid-template-columns: 100%;

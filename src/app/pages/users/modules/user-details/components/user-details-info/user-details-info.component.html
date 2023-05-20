@@ -46,7 +46,9 @@
                 </a>
               </span>
 
-              <div *ngSwitchDefault>{{ userDetails[item.field] }}</div>
+              <span *ngSwitchDefault class="truncated">
+                {{ userDetails[item.field] }}
+              </span>
             </ng-container>
           </ng-container>
         </li>

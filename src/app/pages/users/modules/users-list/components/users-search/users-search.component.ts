@@ -37,7 +37,7 @@ export class UsersSearchComponent implements OnInit {
 
   private subscribeOnSearchChange(): void {
     this.searchControl.valueChanges
-      .pipe(debounceTime(300), distinctUntilChanged(), this.untilDestroy())
+      .pipe(debounceTime(500), distinctUntilChanged(), this.untilDestroy())
       .subscribe(query => {
         this.router.navigate([''], {
           queryParams: {

@@ -10,11 +10,15 @@
       </span>
     </div>
     <div class="user-repo__info-row">
-      <span> Updated on {{ repo.updatedAt | date }}</span>
+      <span class="truncated"> Updated on {{ repo.updatedAt | date }}</span>
 
       <div *ngIf="repo.language" class="user-repo__language">
-        <mat-icon color="primary">trip_origin</mat-icon>
-        {{ repo.language }}
+        <mat-icon color="primary" class="user-repo__language-icon">
+          trip_origin
+        </mat-icon>
+        <span class="truncated">
+          {{ repo.language }}
+        </span>
       </div>
     </div>
   </div>
