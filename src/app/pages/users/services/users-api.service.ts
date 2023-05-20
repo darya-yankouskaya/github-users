@@ -80,6 +80,7 @@ export class UsersApiService {
       followersUrl: details.followers_url,
       following: details.following,
       hireable: details.hireable,
+      htmlUrl: details.html_url,
       location: details.location,
       login: details.login,
       name: details.name,

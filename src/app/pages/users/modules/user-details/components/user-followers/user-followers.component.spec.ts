@@ -39,14 +39,6 @@ describe('UserFollowersComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render h2 component title', () => {
-    const h2: HTMLElement = fixture.nativeElement.querySelector(
-      'h2.user-followers__title',
-    );
-
-    expect(h2.textContent).toContain('Followers');
-  });
-
   it('should render all followers with user card and provide right data', () => {
     const listItemsDE = fixture.debugElement.queryAll(
       By.css('.user-followers__list-item'),

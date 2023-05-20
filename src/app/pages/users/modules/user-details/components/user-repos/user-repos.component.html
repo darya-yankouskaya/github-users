@@ -1,12 +1,7 @@
-<mat-card class="user-repos">
-  <mat-card-header>
-    <h2 class="user-repos__title">Repositories</h2>
-  </mat-card-header>
-  <mat-card-content>
-    <ul class="user-repos__list">
-      <li *ngFor="let repo of repos">
-        <app-user-repo [repo]="repo"></app-user-repo>
-      </li>
-    </ul>
-  </mat-card-content>
-</mat-card>
+<section class="user-repos">
+  <ul class="user-repos__list">
+    <li *ngFor="let repo of repos">
+      <app-user-repo [repo]="repo"></app-user-repo>
+    </li>
+  </ul>
+</section>

@@ -38,13 +38,20 @@
                 {{ userDetails.createdAt | date }}
               </span>
               <span *ngSwitchCase="'blog'" class="truncated">
-                <a
-                  [href]="userDetails.blog"
-                  class="primary-color"
-                  target="”_blank”"
-                >
-                  {{ userDetails.blog }}
-                </a>
+                <ng-container
+                  *ngTemplateOutlet="
+                    linkRef;
+                    context: { href: userDetails.blog }
+                  "
+                ></ng-container>
+              </span>
+              <span *ngSwitchCase="'htmlUrl'" class="truncated">
+                <ng-container
+                  *ngTemplateOutlet="
+                    linkRef;
+                    context: { href: userDetails.htmlUrl }
+                  "
+                ></ng-container>
               </span>
 
               <span *ngSwitchDefault class="truncated">
@@ -60,4 +67,10 @@
 
 <ng-template #emptyValue>
   <app-info-bar [info]="'Not Available'"></app-info-bar>
+</ng-template>
+
+<ng-template #linkRef let-href="href">
+  <a [href]="href" class="primary-color" target="”_blank”">
+    {{ href }}
+  </a>
 </ng-template>

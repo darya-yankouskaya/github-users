@@ -60,7 +60,7 @@ describe('UserRepoComponent', () => {
     expect(visibilityElem.textContent).toContain(value);
   });
 
-  it('should have a link to the repo and open in in a new tab', () => {
+  it('should have a link to the repo and open it in a new tab', () => {
     const link: HTMLAnchorElement =
       fixture.nativeElement.querySelector('.user-repo__link');
 

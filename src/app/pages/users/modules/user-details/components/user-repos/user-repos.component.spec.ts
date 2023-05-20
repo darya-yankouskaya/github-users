@@ -48,14 +48,6 @@ describe('UserReposComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render h2 component title', () => {
-    const h2: HTMLElement = fixture.nativeElement.querySelector(
-      'h2.user-repos__title',
-    );
-
-    expect(h2.textContent).toContain('Repositories');
-  });
-
   it('should render all user repos and provide repo data', () => {
     const repoComponents = fixture.debugElement.queryAll(
       By.directive(UserRepoComponent),

@@ -5,14 +5,31 @@
   >
   </app-user-details-info>
 
-  <ng-container *ngIf="userFollowers$ | async as followers">
-    <app-user-followers
-      *ngIf="followers.length"
-      [followers]="followers"
-    ></app-user-followers>
-  </ng-container>
+  <mat-card *ngIf="userFollowers$ | async as followers">
+    <mat-card-header>
+      <h2 class="user-details__title">Followers</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <app-user-followers
+        *ngIf="followers.length; else noDataFound"
+        [followers]="followers"
+      ></app-user-followers>
+    </mat-card-content>
+  </mat-card>
 
-  <ng-container *ngIf="userRepos$ | async as repos">
-    <app-user-repos *ngIf="repos.length" [repos]="repos"></app-user-repos>
-  </ng-container>
+  <mat-card *ngIf="userRepos$ | async as repos">
+    <mat-card-header>
+      <h2 class="user-details__title">Repositories</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <app-user-repos
+        *ngIf="repos.length; else noDataFound"
+        [repos]="repos"
+      ></app-user-repos>
+    </mat-card-content>
+  </mat-card>
 </section>
+
+<ng-template #noDataFound>
+  <app-no-data-found></app-no-data-found>
+</ng-template>

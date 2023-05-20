@@ -14,6 +14,7 @@ export interface UserDetails extends User {
   followersUrl: string;
   following: number;
   hireable: boolean | null;
+  htmlUrl: string;
   location: string | null;
   name: string | null;
   publicRepos: number;

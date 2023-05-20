@@ -1,22 +1,17 @@
-<mat-card class="user-followers">
-  <mat-card-header>
-    <h2 class="user-followers__title">Followers</h2>
-  </mat-card-header>
-  <mat-card-content>
-    <ul class="user-followers__list">
-      <li *ngFor="let follower of followers" class="user-followers__list-item">
-        <a
-          [routerLink]="['../', follower.login]"
-          queryParamsHandling="merge"
-          class="user-followers__list-item-link"
-        >
-          <app-user-card
-            [avatarUrl]="follower.avatarUrl"
-            [login]="follower.login"
-            [size]="80"
-          ></app-user-card>
-        </a>
-      </li>
-    </ul>
-  </mat-card-content>
-</mat-card>
+<section class="user-followers">
+  <ul class="user-followers__list">
+    <li *ngFor="let follower of followers" class="user-followers__list-item">
+      <a
+        [routerLink]="['../', follower.login]"
+        queryParamsHandling="merge"
+        class="user-followers__list-item-link"
+      >
+        <app-user-card
+          [avatarUrl]="follower.avatarUrl"
+          [login]="follower.login"
+          [size]="80"
+        ></app-user-card>
+      </a>
+    </li>
+  </ul>
+</section>

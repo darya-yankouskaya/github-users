@@ -25,6 +25,10 @@ export const USER_STATISTIC_DATA: ReadonlyArray<UserDetailsStatistic> = [
 
 export const USER_MAIN_INFO_DATA: ReadonlyArray<UserMainInfoData> = [
   {
+    title: 'Github Url: ',
+    field: 'htmlUrl',
+  },
+  {
     title: 'Company: ',
     field: 'company',
   },

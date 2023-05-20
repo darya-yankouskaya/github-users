@@ -12,6 +12,7 @@ import {
 import { User, UserDetails } from '../../models/user.model';
 import { UserRepo } from '../../models/user-repo.model';
 import { UserRepoVisibility } from '../../enums/user-repo.enum';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @Component({
   selector: 'app-user-details-info',
@@ -46,6 +47,7 @@ describe('UserDetailsComponent', () => {
     followersUrl: 'www.test.com',
     following: 1,
     hireable: null,
+    htmlUrl: 'www.test.com',
     id: 1,
     location: null,
     login: 'test',
@@ -112,7 +114,7 @@ describe('UserDetailsComponent', () => {
           ],
         }),
       ],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, SharedModule],
     });
     fixture = TestBed.createComponent(UserDetailsComponent);
     component = fixture.componentInstance;

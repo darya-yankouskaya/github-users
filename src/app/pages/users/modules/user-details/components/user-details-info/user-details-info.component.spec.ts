@@ -18,6 +18,7 @@ describe('UserDetailsInfoComponent', () => {
     followersUrl: 'www.test.com',
     following: 1,
     hireable: null,
+    htmlUrl: 'www.test.com',
     id: 1,
     location: null,
     login: 'test',
