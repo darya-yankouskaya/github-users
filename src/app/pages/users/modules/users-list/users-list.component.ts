@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UsersState } from '../../store/users.state';
-import { selectFilteredUsers } from '../../store/users.selectors';
+import { selectUsers } from '../../store/users.selectors';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -11,7 +11,7 @@ import { User } from '../../models/user.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent {
-  public users$ = this.store.select(selectFilteredUsers);
+  public users$ = this.store.select(selectUsers);
 
   constructor(private store: Store<UsersState>) {}
 
