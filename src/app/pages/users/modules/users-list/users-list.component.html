@@ -10,11 +10,15 @@
     </h2>
 
     <ul class="user-list__list" *ngIf="users.length; else noDataFound">
-      <li *ngFor="let user of users; userTrackBy" class="user-list__item">
+      <li
+        *ngFor="let user of users; trackBy: userTrackBy; let i = index"
+        class="user-list__item"
+      >
         <a [routerLink]="['./', user.login]" queryParamsHandling="merge">
           <app-user-card
             [avatarUrl]="user.avatarUrl"
             [login]="user.login"
+            [priority]="i > 5"
           ></app-user-card>
         </a>
       </li>
