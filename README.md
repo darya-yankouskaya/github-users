@@ -1,8 +1,11 @@
 # GithubUsers
 
-# clone the repo
+# Clone the repo
 
 git clone git@github.com:darya-yankouskaya/github-users.git
+
+# Change directory to the repo
+
 cd github-users
 
 ## Technologies
@@ -12,11 +15,11 @@ cd github-users
 - Angular Material: 16.0.1
 - Typescript: 5.0.2
 
-# install the repo with npm
+# Install the repo with npm
 
 npm install
 
-# start the server
+# Start the server
 
 npm start
 
