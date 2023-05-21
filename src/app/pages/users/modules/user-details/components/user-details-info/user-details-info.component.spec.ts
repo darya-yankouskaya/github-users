@@ -69,6 +69,7 @@ describe('UserDetailsInfoComponent', () => {
     expect(cardComponent.avatarUrl).toEqual(component.userDetails.avatarUrl);
     expect(cardComponent.description).toEqual(component.userDetails.bio);
     expect(cardComponent.login).toEqual(component.userDetails.login);
+    expect(cardComponent.priority).toBeTrue();
   });
 
   it('should show all statictics with right data', () => {

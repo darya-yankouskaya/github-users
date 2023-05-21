@@ -11,4 +11,5 @@ export class UserCardComponent {
   @Input({ required: true }) login!: string;
   @Input() size = 150;
   @Input() description: string | null = null;
+  @Input() priority = false;
 }
