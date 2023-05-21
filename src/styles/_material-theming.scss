@@ -12,9 +12,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $github-users-primary: mat.define-palette(mat.$indigo-palette);
-$github-users-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
+$github-users-accent: mat.define-palette(mat.$orange-palette);
 $github-users-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
@@ -47,8 +45,12 @@ $github-users-dark-theme: mat.define-dark-theme(
 
 .theme-dark {
   @include mat.all-component-colors($github-users-dark-theme);
+
+  .primary-color {
+    color: mat.get-color-from-palette($github-users-primary, 100);
+  }
 }
 
 .primary-color {
-  color: mat.get-color-from-palette($github-users-primary, 400);
+  color: mat.get-color-from-palette($github-users-primary);
 }

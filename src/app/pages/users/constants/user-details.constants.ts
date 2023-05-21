@@ -4,22 +4,22 @@ export const USER_STATISTIC_DATA: ReadonlyArray<UserDetailsStatistic> = [
   {
     title: 'Puplic Repos: ',
     field: 'publicRepos',
-    backgroundColor: 'rgb(149 112 236)',
+    backgroundColor: 'var(--info-bar-color-1)',
   },
   {
     title: 'Puplic Gists: ',
     field: 'publicGists',
-    backgroundColor: 'rgb(33 229 166)',
+    backgroundColor: 'var(--info-bar-color-2)',
   },
   {
     title: 'Puplic Followers: ',
     field: 'followers',
-    backgroundColor: 'rgb(165 165 165)',
+    backgroundColor: 'var(--info-bar-color-3)',
   },
   {
     title: 'Puplic Following: ',
     field: 'following',
-    backgroundColor: 'rgb(188 143 207)',
+    backgroundColor: 'var(--info-bar-color-4)',
   },
 ];
 

@@ -4,21 +4,21 @@ export const USER_REPO_DATA: ReadonlyArray<UserRepoStatistic> = [
   {
     title: 'Forks: ',
     field: 'forksCount',
-    backgroundColor: 'rgb(149 112 236)',
+    backgroundColor: 'var(--info-bar-color-1)',
   },
   {
     title: 'Open Issues: ',
     field: 'openIssuesCount',
-    backgroundColor: 'rgb(33 229 166)',
+    backgroundColor: 'var(--info-bar-color-2)',
   },
   {
     title: 'Stargazers: ',
     field: 'stargazersCount',
-    backgroundColor: 'rgb(165 165 165)',
+    backgroundColor: 'var(--info-bar-color-3)',
   },
   {
     title: 'Watchers: ',
     field: 'watchersCount',
-    backgroundColor: 'rgb(188 143 207)',
+    backgroundColor: 'var(--info-bar-color-4)',
   },
 ];

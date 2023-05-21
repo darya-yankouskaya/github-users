@@ -1,4 +1,18 @@
 :root {
   --border-gray: 1px solid rgb(195, 192, 192);
   --transition: 300ms ease-in-out;
+
+  --info-bar-bgr: rgb(217, 152, 32);
+  --info-bar-color-1: rgb(149 112 236);
+  --info-bar-color-2: rgb(33 229 166);
+  --info-bar-color-3: rgb(165 165 165);
+  --info-bar-color-4: rgb(188 143 207);
+
+  .theme-dark {
+    --info-bar-bgr: rgb(102, 79, 61);
+    --info-bar-color-1: rgb(96, 50, 204);
+    --info-bar-color-2: rgb(52, 127, 63);
+    --info-bar-color-3: rgb(123, 69, 69);
+    --info-bar-color-4: rgb(154, 33, 205);
+  }
 }
