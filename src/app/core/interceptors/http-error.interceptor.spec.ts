@@ -37,7 +37,7 @@ describe('HttpErrorInterceptor', () => {
         expect(storeSpy).toHaveBeenCalledWith(
           showErrorMessage({
             payload: {
-              title: error.error.message,
+              title: 'Error',
               message: error.message,
             },
           }),

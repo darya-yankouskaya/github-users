@@ -24,7 +24,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         this.store.dispatch(
           showErrorMessage({
             payload: {
-              title: error.error.message,
+              title: 'Error',
               message: error.message,
             },
           }),
