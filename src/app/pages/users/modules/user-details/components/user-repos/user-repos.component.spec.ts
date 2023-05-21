@@ -27,11 +27,11 @@ describe('UserReposComponent', () => {
     visibility: UserRepoVisibility.Private,
     watchersCount: 1,
   };
-  const REPOS_MOCK: UserRepo[] = new Array(6).fill(null).map((_, i) => ({
-    ...REPO_MOCK,
-    id: i,
-  }));
-
+  const getReposMock = (count: number) =>
+    new Array(count).fill(null).map((_, i) => ({
+      ...REPO_MOCK,
+      id: i,
+    }));
   let component: UserReposComponent;
   let fixture: ComponentFixture<UserReposComponent>;
 
@@ -42,8 +42,6 @@ describe('UserReposComponent', () => {
     });
     fixture = TestBed.createComponent(UserReposComponent);
     component = fixture.componentInstance;
-    component.repos = REPOS_MOCK;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -51,6 +49,9 @@ describe('UserReposComponent', () => {
   });
 
   it('should render all user repos and provide repo data', () => {
+    component.repos = getReposMock(component.maxCount);
+    fixture.detectChanges();
+
     const repoComponents = fixture.debugElement.queryAll(
       By.directive(UserRepoComponent),
     );
@@ -65,6 +66,9 @@ describe('UserReposComponent', () => {
   });
 
   it('should show all repos on show all button click', () => {
+    component.repos = getReposMock(component.maxCount + 1);
+    fixture.detectChanges();
+
     const btn = fixture.nativeElement.querySelector(
       'button.user-repos__show-all-btn',
     );
@@ -77,5 +81,16 @@ describe('UserReposComponent', () => {
     fixture.detectChanges();
 
     expect(component.visibleRepos).toEqual(component.allRepos);
+  });
+
+  it('should not render show all button if there are few repos', () => {
+    component.repos = getReposMock(component.maxCount - 1);
+    fixture.detectChanges();
+
+    const btn = fixture.nativeElement.querySelector(
+      'button.user-repos__show-all-btn',
+    );
+
+    expect(btn).toBeNull();
   });
 });

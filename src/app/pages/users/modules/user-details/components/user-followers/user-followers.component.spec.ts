@@ -13,10 +13,11 @@ describe('UserFollowersComponent', () => {
     id: 1,
     login: 'user1',
   };
-  const FOLLOWERS_MOCK = new Array(11).fill(null).map((_, i) => ({
-    ...FOLLOWER_MOCK,
-    id: i,
-  }));
+  const getFollowersMock = (count: number) =>
+    new Array(count).fill(null).map((_, i) => ({
+      ...FOLLOWER_MOCK,
+      id: i,
+    }));
 
   let component: UserFollowersComponent;
   let fixture: ComponentFixture<UserFollowersComponent>;
@@ -28,8 +29,6 @@ describe('UserFollowersComponent', () => {
     });
     fixture = TestBed.createComponent(UserFollowersComponent);
     component = fixture.componentInstance;
-    component.followers = FOLLOWERS_MOCK;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -37,6 +36,9 @@ describe('UserFollowersComponent', () => {
   });
 
   it('should render all followers with user card and provide right data', () => {
+    component.followers = getFollowersMock(component.maxCount);
+    fixture.detectChanges();
+
     const listItemsDE = fixture.debugElement.queryAll(
       By.css('.user-followers__list-item'),
     );
@@ -55,6 +57,9 @@ describe('UserFollowersComponent', () => {
   });
 
   it("should have links for all followers and contain follower's login", () => {
+    component.followers = getFollowersMock(component.maxCount);
+    fixture.detectChanges();
+
     const followersList = fixture.debugElement.query(
       By.css('.user-followers__list'),
     );
@@ -70,6 +75,9 @@ describe('UserFollowersComponent', () => {
   });
 
   it('should show all followers on show all button click', () => {
+    component.followers = getFollowersMock(component.maxCount + 1);
+    fixture.detectChanges();
+
     const btn = fixture.nativeElement.querySelector(
       'button.user-followers__show-all-btn',
     );
@@ -82,5 +90,16 @@ describe('UserFollowersComponent', () => {
     fixture.detectChanges();
 
     expect(component.visibleFollowers).toEqual(component.allFollowers);
+  });
+
+  it('should not show show all button if there are few followers', () => {
+    component.followers = getFollowersMock(component.maxCount - 1);
+    fixture.detectChanges();
+
+    const btn = fixture.nativeElement.querySelector(
+      'button.user-followers__show-all-btn',
+    );
+
+    expect(btn).toBeNull();
   });
 });

@@ -7,15 +7,15 @@ export const selectRouterFeature =
 
 export const selectParams = createSelector(
   selectRouterFeature,
-  ({ state }: RouterState = {} as RouterState) => state?.params || {},
+  ({ state }: RouterState) => state.params,
 );
 
 export const selectQueryParams = createSelector(
   selectRouterFeature,
-  ({ state }: RouterState = {} as RouterState) => state?.queryParams || {},
+  ({ state }: RouterState) => state.queryParams,
 );
 
 export const selectUrl = createSelector(
   selectRouterFeature,
-  ({ state }: RouterState = {} as RouterState) => state?.url,
+  ({ state }: RouterState) => state.url,
 );

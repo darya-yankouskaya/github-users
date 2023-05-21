@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { finalize, of } from 'rxjs';
 import { LoadingSpinnerInterceptor } from './loading-spinner.interceptor';
 import { SharedState } from '../../shared/store/shared.state';
 import { changeSpinnerVisibility } from '../../shared/store/shared.actions';
@@ -21,7 +21,7 @@ describe('LoadingSpinnerInterceptor', () => {
     expect(interceptor).toBeTruthy();
   });
 
-  it('expects "intercept" to fire handleRequest', (done: DoneFn) => {
+  it('expects "intercept" to dispatch show/hide spinner', (done: DoneFn) => {
     const interceptor: LoadingSpinnerInterceptor = TestBed.inject(
       LoadingSpinnerInterceptor,
     );
@@ -34,11 +34,22 @@ describe('LoadingSpinnerInterceptor', () => {
     const store = TestBed.inject(Store<SharedState>);
     const storeSpy = spyOn(store, 'dispatch');
 
-    interceptor.intercept(request, handler);
+    const res = interceptor.intercept(request, handler);
 
     expect(storeSpy).toHaveBeenCalledWith(
       changeSpinnerVisibility({ payload: true }),
     );
+
+    res
+      .pipe(
+        finalize(() => {
+          expect(storeSpy).toHaveBeenCalledWith(
+            changeSpinnerVisibility({ payload: false }),
+          );
+        }),
+      )
+      .subscribe();
+
     done();
   });
 });

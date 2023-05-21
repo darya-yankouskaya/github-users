@@ -16,7 +16,7 @@ export class UserReposComponent {
 
   public allRepos: UserRepo[] = [];
   public visibleRepos: UserRepo[] = [];
-  private readonly maxCount = 5;
+  public readonly maxCount = 5;
 
   public repoTrackBy(index: number, repo: UserRepo) {
     return repo.id;
