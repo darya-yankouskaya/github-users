@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './shared/layout/layout.module';
 import { routerFeatureKey } from './shared/store/router/router.state';
 import { CustomRouterStateSerializer } from './core/utils/router-serializer.util';
-import { GithubTokenInterceptor } from './core/interceptors/github-token.interceptor';
 import { sharedFeatureKey } from './shared/store/shared.state';
 import { sharedReducer } from './shared/store/shared.reducers';
 import { environment } from '../environments/environment';
@@ -52,11 +51,6 @@ import { metaReducers } from './core/utils/meta-reducers.util';
     MatSnackBarModule,
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: GithubTokenInterceptor,
-      multi: true,
-    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingSpinnerInterceptor,
