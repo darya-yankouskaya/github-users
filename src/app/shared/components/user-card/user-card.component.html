@@ -2,7 +2,7 @@
   <mat-card-content class="user-card__content">
     <img
       class="user-card__avatar"
-      [src]="avatarUrl"
+      [ngSrc]="avatarUrl"
       [alt]="'GitHub user ' + login + ' avatar'"
       [width]="size"
       [height]="size"
@@ -10,6 +10,8 @@
 
     <h3 class="user-card__title truncated">{{ login }}</h3>
 
-    <p *ngIf="description" class="user-card__description">{{ description }}</p>
+    <p *ngIf="description" class="user-card__description truncated">
+      {{ description }}
+    </p>
   </mat-card-content>
 </mat-card>

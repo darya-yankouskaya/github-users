@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
+import { NgOptimizedImage } from '@angular/common';
 import { NoDataFoundComponent } from './no-data-found.component';
 
 describe('NoDataFoundComponent', () => {
@@ -9,7 +10,7 @@ describe('NoDataFoundComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [NoDataFoundComponent],
-      imports: [MatCardModule],
+      imports: [MatCardModule, NgOptimizedImage],
     });
     fixture = TestBed.createComponent(NoDataFoundComponent);
     component = fixture.componentInstance;
@@ -20,11 +21,13 @@ describe('NoDataFoundComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the image with correct alt text', () => {
+  it('should render the image with correct alt text and source', () => {
     const imageElement: HTMLImageElement = fixture.nativeElement.querySelector(
       'img.no-data-found__image',
     );
+
     expect(imageElement).toBeTruthy();
-    expect(imageElement.alt).toBe('No Data Found');
+    expect(imageElement.src).toBeTruthy();
+    expect(imageElement.alt).toBe(component.imageAltText);
   });
 });

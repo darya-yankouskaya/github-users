@@ -28,4 +28,13 @@ describe('UserCardComponent', () => {
 
     expect(elem.textContent).toEqual(component.login);
   });
+
+  it('should render image with provided source and alt text', () => {
+    const img: HTMLImageElement = fixture.nativeElement.querySelector(
+      'img.user-card__avatar',
+    );
+
+    expect(img.alt).toBeTruthy();
+    expect(img.src).toContain(component.avatarUrl);
+  });
 });

@@ -6,4 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./no-data-found.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoDataFoundComponent {}
+export class NoDataFoundComponent {
+  public readonly imageAltText = 'No Data Found';
+}
