@@ -1,7 +1,17 @@
 <section class="user-repos">
   <ul class="user-repos__list">
-    <li *ngFor="let repo of repos">
+    <li *ngFor="let repo of visibleRepos; trackBy: repoTrackBy">
       <app-user-repo [repo]="repo"></app-user-repo>
     </li>
   </ul>
+
+  <button
+    class="user-repos__show-all-btn"
+    mat-raised-button
+    color="primary"
+    *ngIf="allRepos !== visibleRepos"
+    (click)="showAllRepos()"
+  >
+    Show All Repos
+  </button>
 </section>

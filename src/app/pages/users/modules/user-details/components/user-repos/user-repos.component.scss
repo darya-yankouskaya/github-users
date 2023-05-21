@@ -1,7 +1,14 @@
 .user-repos {
+  display: flex;
+  flex-direction: column;
+
   &__list {
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+  }
+
+  &__show-all-btn {
+    margin: 32px auto;
   }
 }

@@ -8,18 +8,15 @@ import { User } from '../../../../models/user.model';
 import { UserCardComponent } from '../../../../../../shared/components/user-card/user-card.component';
 
 describe('UserFollowersComponent', () => {
-  const FOLLOWERS_MOCK: User[] = [
-    {
-      avatarUrl: 'www.test.jpg',
-      id: 1,
-      login: 'user1',
-    },
-    {
-      avatarUrl: 'www.test2.jpg',
-      id: 2,
-      login: 'user2',
-    },
-  ];
+  const FOLLOWER_MOCK: User = {
+    avatarUrl: 'www.test.jpg',
+    id: 1,
+    login: 'user1',
+  };
+  const FOLLOWERS_MOCK = new Array(11).fill(null).map((_, i) => ({
+    ...FOLLOWER_MOCK,
+    id: i,
+  }));
 
   let component: UserFollowersComponent;
   let fixture: ComponentFixture<UserFollowersComponent>;
@@ -44,13 +41,13 @@ describe('UserFollowersComponent', () => {
       By.css('.user-followers__list-item'),
     );
 
-    expect(listItemsDE.length).toEqual(component.followers.length);
+    expect(listItemsDE.length).toEqual(component.visibleFollowers.length);
 
     listItemsDE.forEach((el, i) => {
       const userCard: UserCardComponent = el.query(
         By.directive(UserCardComponent),
       ).componentInstance;
-      const follower = component.followers[i];
+      const follower = component.visibleFollowers[i];
 
       expect(userCard.avatarUrl).toBe(follower.avatarUrl);
       expect(userCard.login).toBe(follower.login);
@@ -64,11 +61,26 @@ describe('UserFollowersComponent', () => {
     const routerLinksDE = followersList.queryAll(By.directive(RouterLink));
     const links = routerLinksDE.map(el => el.injector.get(RouterLink));
 
-    expect(links.length).toBe(component.followers.length);
+    expect(links.length).toBe(component.visibleFollowers.length);
 
     links.forEach((link, i) => {
-      expect(link.href).toBe(`/${component.followers[i].login}`);
+      expect(link.href).toBe(`/${component.visibleFollowers[i].login}`);
       expect(link.queryParamsHandling).toBe('merge');
     });
+  });
+
+  it('should show all followers on show all button click', () => {
+    const btn = fixture.nativeElement.querySelector(
+      'button.user-followers__show-all-btn',
+    );
+
+    expect(component.visibleFollowers.length).not.toEqual(
+      component.allFollowers.length,
+    );
+
+    btn.click();
+    fixture.detectChanges();
+
+    expect(component.visibleFollowers).toEqual(component.allFollowers);
   });
 });

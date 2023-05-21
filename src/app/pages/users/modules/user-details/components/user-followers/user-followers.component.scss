@@ -1,6 +1,9 @@
 @use 'mixins.scss' as mixin;
 
 .user-followers {
+  display: flex;
+  flex-direction: column;
+
   &__list {
     display: grid;
     grid-template-columns: 100%;
@@ -25,5 +28,9 @@
     &:hover {
       transform: scale(1.05);
     }
+  }
+
+  &__show-all-btn {
+    margin: 32px auto;
   }
 }

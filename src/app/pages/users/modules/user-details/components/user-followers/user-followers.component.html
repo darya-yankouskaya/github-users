@@ -1,6 +1,9 @@
 <section class="user-followers">
   <ul class="user-followers__list">
-    <li *ngFor="let follower of followers" class="user-followers__list-item">
+    <li
+      *ngFor="let follower of visibleFollowers; trackBy: trackBy; let i = index"
+      class="user-followers__list-item"
+    >
       <a
         [routerLink]="['../', follower.login]"
         queryParamsHandling="merge"
@@ -10,8 +13,19 @@
           [avatarUrl]="follower.avatarUrl"
           [login]="follower.login"
           [size]="80"
+          [priority]="i < maxCount"
         ></app-user-card>
       </a>
     </li>
   </ul>
+
+  <button
+    class="user-followers__show-all-btn"
+    mat-raised-button
+    color="primary"
+    *ngIf="allFollowers !== visibleFollowers"
+    (click)="showAllRepos()"
+  >
+    Show All Followers
+  </button>
 </section>

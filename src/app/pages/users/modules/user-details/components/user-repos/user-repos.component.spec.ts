@@ -14,21 +14,23 @@ class UserRepoComponent {
 }
 
 describe('UserReposComponent', () => {
-  const REPOS_MOCK: UserRepo[] = [
-    {
-      description: '',
-      id: 1,
-      forksCount: 1,
-      language: 'Javascript',
-      name: 'Name',
-      openIssuesCount: 1,
-      stargazersCount: 1,
-      updatedAt: new Date().toISOString(),
-      htmlUrl: 'www.test.com',
-      visibility: UserRepoVisibility.Private,
-      watchersCount: 1,
-    },
-  ];
+  const REPO_MOCK: UserRepo = {
+    description: '',
+    id: 1,
+    forksCount: 1,
+    language: 'Javascript',
+    name: 'Name',
+    openIssuesCount: 1,
+    stargazersCount: 1,
+    updatedAt: new Date().toISOString(),
+    htmlUrl: 'www.test.com',
+    visibility: UserRepoVisibility.Private,
+    watchersCount: 1,
+  };
+  const REPOS_MOCK: UserRepo[] = new Array(6).fill(null).map((_, i) => ({
+    ...REPO_MOCK,
+    id: i,
+  }));
 
   let component: UserReposComponent;
   let fixture: ComponentFixture<UserReposComponent>;
@@ -53,10 +55,27 @@ describe('UserReposComponent', () => {
       By.directive(UserRepoComponent),
     );
 
-    expect(repoComponents.length).toEqual(component.repos.length);
+    expect(repoComponents.length).toEqual(component.visibleRepos.length);
 
     repoComponents.forEach((repoComponent, i) => {
-      expect(repoComponent.componentInstance.repo).toEqual(component.repos[i]);
+      expect(repoComponent.componentInstance.repo).toEqual(
+        component.visibleRepos[i],
+      );
     });
+  });
+
+  it('should show all repos on show all button click', () => {
+    const btn = fixture.nativeElement.querySelector(
+      'button.user-repos__show-all-btn',
+    );
+
+    expect(component.visibleRepos.length).not.toEqual(
+      component.allRepos.length,
+    );
+
+    btn.click();
+    fixture.detectChanges();
+
+    expect(component.visibleRepos).toEqual(component.allRepos);
   });
 });
