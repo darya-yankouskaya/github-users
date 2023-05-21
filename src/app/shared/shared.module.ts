@@ -8,7 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { NgOptimizedImage } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {
+  MAT_TOOLTIP_DEFAULT_OPTIONS,
+  MatTooltipDefaultOptions,
+  MatTooltipModule,
+} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
@@ -32,6 +36,13 @@ const SHARED_COMPONENT = [
   NoDataFoundComponent,
 ];
 
+const matTooltipCustomConfig: MatTooltipDefaultOptions = {
+  showDelay: 5,
+  hideDelay: 5,
+  touchendHideDelay: 5,
+  touchGestures: 'off',
+};
+
 @NgModule({
   imports: [CommonModule, ...MATERIAL_MODULES, NgOptimizedImage],
   exports: [
@@ -41,5 +52,8 @@ const SHARED_COMPONENT = [
     NgOptimizedImage,
   ],
   declarations: [...SHARED_COMPONENT],
+  providers: [
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: matTooltipCustomConfig },
+  ],
 })
 export class SharedModule {}
