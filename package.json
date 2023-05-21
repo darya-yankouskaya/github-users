@@ -2,7 +2,7 @@
   "name": "github-users",
   "version": "1.0.0",
   "scripts": {
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "ng": "ng",
     "start": "ng serve",
     "lint": "ng lint",

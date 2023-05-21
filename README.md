@@ -1,14 +1,26 @@
 # GithubUsers
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
+# clone the repo
 
-## Development server
+git clone git@github.com:darya-yankouskaya/github-users.git
+cd github-users
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Technologies
 
-## Code scaffolding
+- node: v18.15.0
+- Angular Version: 16.0.0
+- Angular Material: 16.0.1
+- Typescript: 5.0.2
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# install the repo with npm
+
+npm install
+
+# start the server
+
+npm start
+
+go to [https://localhost:4200](http://localhost:4200) in your browser
 
 ## Build
 
@@ -18,10 +30,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Commits
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The app uses lefthook before files committing. It runs in parallel 'npx prettier' and 'npx eslint' for staged files and 'npm run test'. Ensure you follow all the prettier and eslint rules to commit the files.
 
-## Further help
+## Demo URL
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+https://github-users-search-cc587.web.app
