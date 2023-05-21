@@ -13,8 +13,9 @@
       <mat-slide-toggle
         class="header__theme-slider"
         color="primary"
-        [formControl]="themeControl"
         [aria-label]="'Change Page Thene'"
+        [checked]="isDarkMode$ | async"
+        (click)="$event.preventDefault(); toggleTheme()"
       >
         <mat-icon>bedtime</mat-icon>
       </mat-slide-toggle>

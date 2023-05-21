@@ -22,6 +22,7 @@ import { LoadingSpinnerInterceptor } from './core/interceptors/loading-spinner.i
 import { SharedEffects } from './shared/store/shared.effects';
 import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
 import { CustomRouteReuseStrategy } from './core/classes/custom-route-reuse-strategy.class';
+import { metaReducers } from './core/utils/meta-reducers.util';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,10 +33,15 @@ import { CustomRouteReuseStrategy } from './core/classes/custom-route-reuse-stra
     HttpClientModule,
     LayoutModule,
     EffectsModule.forRoot([SharedEffects]),
-    StoreModule.forRoot({
-      [routerFeatureKey]: routerReducer,
-      [sharedFeatureKey]: sharedReducer,
-    }),
+    StoreModule.forRoot(
+      {
+        [routerFeatureKey]: routerReducer,
+        [sharedFeatureKey]: sharedReducer,
+      },
+      {
+        metaReducers: metaReducers,
+      },
+    ),
     StoreRouterConnectingModule.forRoot({
       serializer: CustomRouterStateSerializer,
     }),

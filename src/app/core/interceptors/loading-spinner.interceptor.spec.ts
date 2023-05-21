@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { LoadingSpinnerInterceptor } from './loading-spinner.interceptor';
 import { SharedState } from '../../shared/store/shared.state';
+import { changeSpinnerVisibility } from '../../shared/store/shared.actions';
 
 describe('LoadingSpinnerInterceptor', () => {
   beforeEach(() =>
@@ -36,9 +37,7 @@ describe('LoadingSpinnerInterceptor', () => {
     interceptor.intercept(request, handler);
 
     expect(storeSpy).toHaveBeenCalledWith(
-      jasmine.objectContaining({
-        payload: true,
-      }),
+      changeSpinnerVisibility({ payload: true }),
     );
     done();
   });

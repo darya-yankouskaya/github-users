@@ -33,10 +33,13 @@ describe('HttpErrorInterceptor', () => {
       }),
     );
     interceptor.intercept(httpRequestSpy, httpHandlerSpy).subscribe({
-      error: () => {
+      error: error => {
         expect(storeSpy).toHaveBeenCalledWith(
-          jasmine.objectContaining({
-            type: showErrorMessage.type,
+          showErrorMessage({
+            payload: {
+              title: error.error.message,
+              message: error.message,
+            },
           }),
         );
       },

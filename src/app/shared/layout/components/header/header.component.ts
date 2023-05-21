@@ -1,14 +1,8 @@
-import { DOCUMENT } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { startWith } from 'rxjs/operators';
-import { untilDestroy } from 'src/app/shared/utils/until-destroy';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectIsDarkMode } from '../../../../shared/store/shared.selectors';
+import { SharedState } from '../../../../shared/store/shared.state';
+import { setTheme, toggleTheme } from '../../../../shared/store/shared.actions';
 
 @Component({
   selector: 'app-header',
@@ -17,27 +11,15 @@ import { untilDestroy } from 'src/app/shared/utils/until-destroy';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  public themeControl = new FormControl(false, { nonNullable: true });
-  private untilDestroy = untilDestroy();
+  public isDarkMode$ = this.store.select(selectIsDarkMode);
 
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private renderer: Renderer2,
-  ) {}
+  constructor(private store: Store<SharedState>) {}
 
   ngOnInit(): void {
-    this.subscribeOnThemeChange();
+    this.store.dispatch(setTheme());
   }
 
-  private subscribeOnThemeChange(): void {
-    this.themeControl.valueChanges
-      .pipe(startWith(false), this.untilDestroy())
-      .subscribe(isDark => {
-        this.renderer.setAttribute(
-          this.document.body,
-          'class',
-          `${isDark ? 'theme-dark' : 'theme-light'} mat-app-background`,
-        );
-      });
+  public toggleTheme(): void {
+    this.store.dispatch(toggleTheme());
   }
 }

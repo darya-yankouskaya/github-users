@@ -43,12 +43,10 @@ $github-users-dark-theme: mat.define-dark-theme(
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 
-.theme-light {
-  @include mat.all-component-themes($github-users-theme);
-}
+@include mat.all-component-themes($github-users-theme);
 
 .theme-dark {
-  @include mat.all-component-themes($github-users-dark-theme);
+  @include mat.all-component-colors($github-users-dark-theme);
 }
 
 .primary-color {

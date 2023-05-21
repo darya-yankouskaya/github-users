@@ -3,7 +3,7 @@ import { createAction, props } from '@ngrx/store';
 const actionPrefix = '[Shared]';
 
 export const changeSpinnerVisibility = createAction(
-  `${actionPrefix} Show Spinner`,
+  `${actionPrefix} Change Spinner Visibility`,
   props<{ payload: boolean }>(),
 );
 
@@ -16,3 +16,7 @@ export const showErrorMessage = createAction(
     };
   }>(),
 );
+
+export const toggleTheme = createAction(`${actionPrefix} Toggle Theme`);
+
+export const setTheme = createAction(`${actionPrefix} Set Theme`);
