@@ -65,6 +65,11 @@ $user-card-width: 250px;
   }
 
   &__info-list-title {
+    flex-shrink: 0;
     font-weight: bold;
+  }
+
+  &__info-list-value {
+    word-break: break-word;
   }
 }

@@ -35,7 +35,10 @@
           }}</span>
           <ng-container *ngIf="userDetails[item.field]; else emptyValue">
             <ng-container [ngSwitch]="item.field">
-              <span *ngSwitchCase="'createdAt'" class="truncated">
+              <span
+                *ngSwitchCase="'createdAt'"
+                class="user-details-info__info-list-value"
+              >
                 {{ userDetails.createdAt | date }}
               </span>
               <span *ngSwitchCase="'blog'" class="truncated">
@@ -55,7 +58,7 @@
                 ></ng-container>
               </span>
 
-              <span *ngSwitchDefault class="truncated">
+              <span *ngSwitchDefault class="user-details-info__info-list-value">
                 {{ userDetails[item.field] }}
               </span>
             </ng-container>
