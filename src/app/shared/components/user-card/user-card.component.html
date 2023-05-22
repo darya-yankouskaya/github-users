@@ -2,7 +2,7 @@
   <mat-card-content class="user-card__content">
     <img
       class="user-card__avatar"
-      [ngSrc]="avatarUrl"
+      [ngSrc]="avatarUrl + '&s=' + size"
       [alt]="'GitHub user ' + login + ' avatar'"
       [width]="size"
       [height]="size"
