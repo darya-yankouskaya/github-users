@@ -32,8 +32,8 @@ describe('InfoBarComponent', () => {
   });
 
   it('should show the tooltip with info', () => {
-    const tooltipDE = fixture.debugElement.query(By.css('.info-bar'));
-    const tooltip = tooltipDE.injector.get(MatTooltip);
+    const tooltipInfoDE = fixture.debugElement.query(By.css('.info-bar__info'));
+    const tooltip = tooltipInfoDE.injector.get(MatTooltip);
 
     expect(tooltip).toBeTruthy();
     expect(tooltip.message).toEqual(component.info);
