@@ -3,6 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MemoizedSelector, Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { HeaderComponent } from './header.component';
@@ -20,7 +22,12 @@ describe('HeaderComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
-      imports: [SharedModule, RouterTestingModule],
+      imports: [
+        SharedModule,
+        RouterTestingModule,
+        MatToolbarModule,
+        MatSlideToggleModule,
+      ],
       providers: [provideMockStore({})],
     });
     fixture = TestBed.createComponent(HeaderComponent);

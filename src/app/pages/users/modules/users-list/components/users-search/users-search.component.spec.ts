@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -32,6 +34,8 @@ describe('UsersSearchComponent', () => {
         ReactiveFormsModule,
         SharedModule,
         BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
       ],
     });
     fixture = TestBed.createComponent(UsersSearchComponent);
