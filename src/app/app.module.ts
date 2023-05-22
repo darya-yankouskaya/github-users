@@ -46,7 +46,7 @@ import { metaReducers } from './core/utils/meta-reducers.util';
       serializer: CustomRouterStateSerializer,
     }),
     StoreDevtoolsModule.instrument({
-      logOnly: !environment.production,
+      logOnly: environment.production,
     }),
     MatProgressSpinnerModule,
     MatSnackBarModule,
