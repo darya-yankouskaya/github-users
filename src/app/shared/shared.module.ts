@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { NgOptimizedImage } from '@angular/common';
-import { MatListModule } from '@angular/material/list';
 import {
   MAT_TOOLTIP_DEFAULT_OPTIONS,
   MatTooltipDefaultOptions,
@@ -25,7 +24,6 @@ const MATERIAL_MODULES = [
   MatFormFieldModule,
   MatInputModule,
   MatCardModule,
-  MatListModule,
   MatTooltipModule,
   MatButtonModule,
 ];
