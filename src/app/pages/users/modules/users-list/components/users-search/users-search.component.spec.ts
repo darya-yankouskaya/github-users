@@ -10,6 +10,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { UsersSearchComponent } from './users-search.component';
 import { SharedModule } from '../../../../../../shared/shared.module';
 import { selectQueryParams } from '../../../../../../shared/store/router/router.selectors';
+import {
+  findDebugElementByCss,
+  findElementByCss,
+} from '../../../../../../shared/utils/testing.helpers';
 
 describe('UsersSearchComponent', () => {
   let component: UsersSearchComponent;
@@ -48,24 +52,25 @@ describe('UsersSearchComponent', () => {
   });
 
   it('should render component title', () => {
-    const elem = fixture.nativeElement.querySelector('h2.users-search__title');
+    const elem = findElementByCss(fixture, 'h2.users-search__title');
 
     expect(elem).toBeTruthy();
   });
 
   it('should navigate on search query change', async () => {
-    const input: HTMLInputElement = fixture.nativeElement.querySelector(
+    const input: HTMLInputElement = findElementByCss(
+      fixture,
       'input.users-search__search-input',
-    );
-    input.value = 'Name';
-    input.dispatchEvent(new Event('input'));
-
+    )!;
     const router = TestBed.inject(Router);
     const store = TestBed.inject(Store);
     const routerSpy = spyOn(router, 'navigate');
     const storeSpy = spyOn(store, 'dispatch');
 
+    input.value = 'New Name';
+    input.dispatchEvent(new Event('input'));
     fixture.detectChanges();
+
     await fixture.whenStable().then(() => {
       expect(component.searchControl.value).toEqual(input.value);
       expect(routerSpy).toHaveBeenCalled();
@@ -77,15 +82,15 @@ describe('UsersSearchComponent', () => {
     expect(component.searchControl.value).toEqual(MOCK_QUERY_PARAMS.name);
   });
 
-  it('should reset search control value on reset button click', async () => {
-    const btn: HTMLButtonElement = fixture.nativeElement.querySelector(
+  it('should reset search control value on reset button click', () => {
+    const btn = findDebugElementByCss(
+      fixture,
       'button.users-search__reset-btn',
-    );
+    )!;
 
-    btn.click();
+    btn.triggerEventHandler('click', null);
+    fixture.detectChanges();
 
-    await fixture
-      .whenStable()
-      .then(() => expect(component.searchControl.value).toBe(''));
+    expect(component.searchControl.value).toBe('');
   });
 });
