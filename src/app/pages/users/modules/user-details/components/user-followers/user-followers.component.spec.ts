@@ -6,6 +6,11 @@ import { UserFollowersComponent } from './user-followers.component';
 import { SharedModule } from '../../../../../../shared/shared.module';
 import { User } from '../../../../models/user.model';
 import { UserCardComponent } from '../../../../../../shared/components/user-card/user-card.component';
+import {
+  findAllDebugElementsByCss,
+  findDebugElementByCss,
+  findElementByCss,
+} from 'src/app/shared/utils/testing.helpers';
 
 describe('UserFollowersComponent', () => {
   const FOLLOWER_MOCK: User = {
@@ -39,8 +44,9 @@ describe('UserFollowersComponent', () => {
     component.followers = getFollowersMock(component.maxCount);
     fixture.detectChanges();
 
-    const listItemsDE = fixture.debugElement.queryAll(
-      By.css('.user-followers__list-item'),
+    const listItemsDE = findAllDebugElementsByCss(
+      fixture,
+      '.user-followers__list-item',
     );
 
     expect(listItemsDE.length).toEqual(component.visibleFollowers.length);
@@ -60,9 +66,10 @@ describe('UserFollowersComponent', () => {
     component.followers = getFollowersMock(component.maxCount);
     fixture.detectChanges();
 
-    const followersList = fixture.debugElement.query(
-      By.css('.user-followers__list'),
-    );
+    const followersList = findDebugElementByCss(
+      fixture,
+      '.user-followers__list',
+    )!;
     const routerLinksDE = followersList.queryAll(By.directive(RouterLink));
     const links = routerLinksDE.map(el => el.injector.get(RouterLink));
 
@@ -78,9 +85,10 @@ describe('UserFollowersComponent', () => {
     component.followers = getFollowersMock(component.maxCount + 1);
     fixture.detectChanges();
 
-    const btn = fixture.nativeElement.querySelector(
+    const btn = findElementByCss(
+      fixture,
       'button.user-followers__show-all-btn',
-    );
+    )!;
 
     expect(component.visibleFollowers.length).not.toEqual(
       component.allFollowers.length,
@@ -96,9 +104,10 @@ describe('UserFollowersComponent', () => {
     component.followers = getFollowersMock(component.maxCount - 1);
     fixture.detectChanges();
 
-    const btn = fixture.nativeElement.querySelector(
+    const btn = findElementByCss(
+      fixture,
       'button.user-followers__show-all-btn',
-    );
+    )!;
 
     expect(btn).toBeNull();
   });

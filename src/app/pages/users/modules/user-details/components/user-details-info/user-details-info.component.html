@@ -2,7 +2,9 @@
   <h1 class="visually-hidden">User Details</h1>
 
   <mat-card-content class="user-details-info">
-    <h2 class="visually-hidden">{{ userDetails.name }} Avatar</h2>
+    <h2 class="visually-hidden user-details-info__title">
+      {{ userDetails.name }} Avatar
+    </h2>
     <app-user-card
       class="user-details-info__user-card"
       [avatarUrl]="userDetails.avatarUrl"

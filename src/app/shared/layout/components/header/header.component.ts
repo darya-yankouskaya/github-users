@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { selectIsDarkMode } from '../../../../shared/store/shared.selectors';
-import { SharedState } from '../../../../shared/store/shared.state';
-import { setTheme, toggleTheme } from '../../../../shared/store/shared.actions';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -10,16 +12,12 @@ import { setTheme, toggleTheme } from '../../../../shared/store/shared.actions';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
-  public isDarkMode$ = this.store.select(selectIsDarkMode);
+export class HeaderComponent {
+  @Input({ required: true }) isDarkMode!: boolean;
 
-  constructor(private store: Store<SharedState>) {}
+  @Output() toggleTheme = new EventEmitter<void>();
 
-  ngOnInit(): void {
-    this.store.dispatch(setTheme());
-  }
-
-  public toggleTheme(): void {
-    this.store.dispatch(toggleTheme());
+  public onToggleThemeClick(): void {
+    this.toggleTheme.emit();
   }
 }

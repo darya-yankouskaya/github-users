@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserCardComponent } from './user-card.component';
 import { SharedModule } from '../../shared.module';
+import { findElementByCss } from '../../utils/testing.helpers';
 
 describe('UserCardComponent', () => {
   let component: UserCardComponent;
@@ -24,15 +25,16 @@ describe('UserCardComponent', () => {
   });
 
   it('should render title with user login', () => {
-    const elem = fixture.nativeElement.querySelector('h3.user-card__title');
+    const elem = findElementByCss(fixture, 'h3.user-card__title')!;
 
     expect(elem.textContent).toEqual(component.login);
   });
 
   it('should render image with provided source and alt text', () => {
-    const img: HTMLImageElement = fixture.nativeElement.querySelector(
+    const img: HTMLImageElement = findElementByCss(
+      fixture,
       'img.user-card__avatar',
-    );
+    )!;
 
     expect(img.alt).toBeTruthy();
     expect(img.src).toContain(component.avatarUrl);

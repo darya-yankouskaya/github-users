@@ -1,5 +1,8 @@
 <main>
-  <app-header></app-header>
+  <app-header
+    [isDarkMode]="(isDarkMode$ | async)!"
+    (toggleTheme)="toggleTheme()"
+  ></app-header>
   <div
     class="app-container"
     [@routerTransition]="outlet.isActivated ? outlet.activatedRoute : ''"

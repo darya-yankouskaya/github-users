@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Component, Input } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { MemoizedSelector, Store } from '@ngrx/store';
 import { UserDetailsComponent } from './user-details.component';
 import {
   selectUserDetails,
@@ -13,28 +14,37 @@ import { User, UserDetails } from '../../models/user.model';
 import { UserRepo } from '../../models/user-repo.model';
 import { UserRepoVisibility } from '../../enums/user-repo.enum';
 import { SharedModule } from '../../../../shared/shared.module';
-import { NoDataFoundComponent } from 'src/app/shared/components/no-data-found/no-data-found.component';
+import { NoDataFoundComponent } from '../../../../shared/components/no-data-found/no-data-found.component';
 import { UsersState } from '../../store/users.state';
-import { MemoizedSelector, Store } from '@ngrx/store';
+import {
+  findDebugElementByCss,
+  findDirective,
+  findElementByCss,
+} from '../../../../shared/utils/testing.helpers';
+import { UserFollowersComponent } from './components/user-followers/user-followers.component';
+import { UserDetailsInfoComponent } from './components/user-details-info/user-details-info.component';
+import { UserReposComponent } from './components/user-repos/user-repos.component';
 
 @Component({
   selector: 'app-user-details-info',
 })
-class UserDetailsInfoComponent {
+class FakeUserDetailsInfoComponent
+  implements Partial<UserDetailsInfoComponent>
+{
   @Input({ required: true }) userDetails!: UserDetails;
 }
 
 @Component({
   selector: 'app-user-followers',
 })
-class UserFollowersComponent {
+class FakeUserFollowersComponent implements Partial<UserFollowersComponent> {
   @Input({ required: true }) followers!: User[];
 }
 
 @Component({
   selector: 'app-user-repos',
 })
-class UserReposComponent {
+class FakeUserReposComponent implements Partial<UserReposComponent> {
   @Input({ required: true }) repos!: UserRepo[];
 }
 
@@ -98,9 +108,9 @@ describe('UserDetailsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         UserDetailsComponent,
-        UserDetailsInfoComponent,
-        UserFollowersComponent,
-        UserReposComponent,
+        FakeUserDetailsInfoComponent,
+        FakeUserFollowersComponent,
+        FakeUserReposComponent,
       ],
       providers: [
         provideMockStore({
@@ -130,35 +140,35 @@ describe('UserDetailsComponent', () => {
   });
 
   it('should render user details info', () => {
-    const userDetailsComponent: UserDetailsInfoComponent =
-      fixture.debugElement.query(
-        By.directive(UserDetailsInfoComponent),
-      ).componentInstance;
+    const userDetailsComponent = findDirective(
+      fixture,
+      FakeUserDetailsInfoComponent,
+    )!;
 
     expect(userDetailsComponent).toBeTruthy();
     expect(userDetailsComponent.userDetails).toEqual(USER_DETAILS_MOCK);
   });
 
   it('should render followers title', () => {
-    const elem: HTMLElement = fixture.nativeElement.querySelector(
+    const elem = findElementByCss(
+      fixture,
       'h2.user-details__title--followers',
-    );
+    )!;
 
     expect(elem.textContent).toContain('Followers');
   });
 
   it('should render repos title', () => {
-    const elem: HTMLElement = fixture.nativeElement.querySelector(
-      'h2.user-details__title--repos',
-    );
+    const elem = findElementByCss(fixture, 'h2.user-details__title--repos')!;
 
     expect(elem.textContent).toContain('Repositories');
   });
 
   it('should render no data found or user followers', () => {
-    const followersDE = fixture.debugElement.query(
-      By.css('.user-details__followers'),
-    );
+    const followersDE = findDebugElementByCss(
+      fixture,
+      '.user-details__followers',
+    )!;
     const noDataDE = followersDE.query(By.directive(NoDataFoundComponent));
 
     expect(noDataDE).toBeTruthy();
@@ -167,18 +177,14 @@ describe('UserDetailsComponent', () => {
     mockStore.refreshState();
     fixture.detectChanges();
 
-    const userFollowers: UserFollowersComponent = fixture.debugElement.query(
-      By.directive(UserFollowersComponent),
-    ).componentInstance;
+    const userFollowers = findDirective(fixture, FakeUserFollowersComponent)!;
 
     expect(userFollowers).toBeTruthy();
     expect(userFollowers.followers).toEqual(FOLLOWERS_MOCK);
   });
 
   it('should render no data found or user repos', () => {
-    const followersDE = fixture.debugElement.query(
-      By.css('.user-details__repos'),
-    );
+    const followersDE = findDebugElementByCss(fixture, '.user-details__repos')!;
     const noDataDE = followersDE.query(By.directive(NoDataFoundComponent));
 
     expect(noDataDE).toBeTruthy();
@@ -187,9 +193,7 @@ describe('UserDetailsComponent', () => {
     mockStore.refreshState();
     fixture.detectChanges();
 
-    const userRepos: UserReposComponent = fixture.debugElement.query(
-      By.directive(UserReposComponent),
-    ).componentInstance;
+    const userRepos = findDirective(fixture, FakeUserReposComponent)!;
 
     expect(userRepos).toBeTruthy();
     expect(userRepos.repos).toEqual(REPOS_MOCK);

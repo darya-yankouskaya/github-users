@@ -7,23 +7,37 @@ import {
   MatProgressSpinnerModule,
 } from '@angular/material/progress-spinner';
 import { By } from '@angular/platform-browser';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { MemoizedSelector, Store } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { SharedState } from './shared/store/shared.state';
-import { selectIsSpinnerVisible } from './shared/store/shared.selectors';
+import {
+  selectIsDarkMode,
+  selectIsSpinnerVisible,
+} from './shared/store/shared.selectors';
+import { setTheme, toggleTheme } from './shared/store/shared.actions';
+import { HeaderComponent } from './shared/layout/components/header/header.component';
+import {
+  findDebugElementByDirective,
+  findDirective,
+} from './shared/utils/testing.helpers';
 
 @Component({
   selector: 'app-header',
 })
-class HeaderComponent {}
+class FakeHeaderComponent implements Partial<HeaderComponent> {
+  @Input({ required: true }) isDarkMode!: boolean;
+
+  @Output() toggleTheme = new EventEmitter<void>();
+}
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let mockStore: MockStore<SharedState>;
   let mockSelectIsSpinnerVisible: MemoizedSelector<SharedState, boolean>;
+  let mockSelectIsDarkMode: MemoizedSelector<SharedState, boolean>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,7 +46,7 @@ describe('AppComponent', () => {
         BrowserAnimationsModule,
         MatProgressSpinnerModule,
       ],
-      declarations: [AppComponent, HeaderComponent],
+      declarations: [AppComponent, FakeHeaderComponent],
       providers: [provideMockStore()],
     });
 
@@ -43,6 +57,8 @@ describe('AppComponent', () => {
       selectIsSpinnerVisible,
       false,
     );
+    mockSelectIsDarkMode = mockStore.overrideSelector(selectIsDarkMode, false);
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
@@ -50,7 +66,9 @@ describe('AppComponent', () => {
   });
 
   it('should render header', () => {
-    const header = fixture.debugElement.query(By.directive(HeaderComponent));
+    const header = fixture.debugElement.query(
+      By.directive(FakeHeaderComponent),
+    );
 
     expect(header).toBeTruthy();
   });
@@ -66,7 +84,7 @@ describe('AppComponent', () => {
     mockStore.refreshState();
     fixture.detectChanges();
 
-    let spinner = fixture.debugElement.query(By.directive(MatProgressSpinner));
+    let spinner = findDebugElementByDirective(fixture, MatProgressSpinner);
 
     expect(spinner).toBeTruthy();
 
@@ -74,8 +92,39 @@ describe('AppComponent', () => {
     mockStore.refreshState();
     fixture.detectChanges();
 
-    spinner = fixture.debugElement.query(By.directive(MatProgressSpinner));
+    spinner = findDebugElementByDirective(fixture, MatProgressSpinner);
 
-    expect(spinner).toBeFalsy();
+    expect(spinner).toBeNull();
+  });
+
+  it('should dispatch setTheme in OnInit hook', () => {
+    const store = TestBed.inject(Store<SharedState>);
+    const dispatchSpy = spyOn(store, 'dispatch');
+
+    component.ngOnInit();
+
+    expect(dispatchSpy).toHaveBeenCalledWith(setTheme());
+  });
+
+  it('should dispatch toggleTheme', () => {
+    const store = TestBed.inject(Store<SharedState>);
+    const dispatchSpy = spyOn(store, 'dispatch');
+    const header = findDirective(fixture, FakeHeaderComponent);
+
+    header!.toggleTheme.emit();
+
+    expect(dispatchSpy).toHaveBeenCalledWith(toggleTheme());
+  });
+
+  it('should provide to header theme mode', () => {
+    const header = findDirective(fixture, FakeHeaderComponent);
+
+    expect(header!.isDarkMode).toBeFalse();
+
+    mockSelectIsDarkMode.setResult(true);
+    mockStore.refreshState();
+    fixture.detectChanges();
+
+    expect(header!.isDarkMode).toBeTrue();
   });
 });
