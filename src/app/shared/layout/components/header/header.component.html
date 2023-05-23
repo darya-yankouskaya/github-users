@@ -15,7 +15,7 @@
         color="primary"
         [aria-label]="'Change Page Thene'"
         [checked]="isDarkMode$ | async"
-        (click)="$event.preventDefault(); toggleTheme()"
+        (change)="toggleTheme()"
       >
         <mat-icon>bedtime</mat-icon>
       </mat-slide-toggle>
