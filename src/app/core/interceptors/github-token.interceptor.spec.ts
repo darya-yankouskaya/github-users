@@ -33,7 +33,12 @@ describe('GithubTokenInterceptor', () => {
 
     resp$.subscribe(v => {
       const token = v.headers.get('Authorization');
-      expect(token).toContain(environment.githubToken);
+
+      if (environment.githubToken) {
+        expect(token).toContain(environment.githubToken);
+      } else {
+        expect(token).toEqual(null);
+      }
     });
   });
 });

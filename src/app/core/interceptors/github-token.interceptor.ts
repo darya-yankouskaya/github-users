@@ -16,7 +16,7 @@ export class GithubTokenInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler,
   ): Observable<HttpEvent<unknown>> {
-    if (request.url.includes(environment.githubAPI)) {
+    if (request.url.includes(environment.githubAPI) && this.githubToken) {
       request = request.clone({
         headers: request.headers.set(
           'Authorization',

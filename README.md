@@ -29,6 +29,10 @@ go to [https://localhost:4200](http://localhost:4200) in your browser
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## Environment
+
+Add your Github token in enviroment files in case you want to make more requests per hour.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
