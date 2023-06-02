@@ -5,6 +5,10 @@ import { UserRepo } from '../../../../models/user-repo.model';
 import { UserRepoVisibility } from '../../../../enums/user-repo.enum';
 import { SharedModule } from '../../../../../../shared/shared.module';
 import { InfoBarComponent } from '../../../../../../shared/components/info-bar/info-bar.component';
+import {
+  findAllDebugElementsByCss,
+  findElementByCss,
+} from '../../../../../../shared/utils/testing.helpers';
 
 describe('UserRepoComponent', () => {
   let component: UserRepoComponent;
@@ -40,17 +44,13 @@ describe('UserRepoComponent', () => {
   });
 
   it('should render user name in h3 title', () => {
-    const h3: HTMLElement = fixture.nativeElement.querySelector(
-      'h3.user-repo__user-name',
-    );
+    const h3 = findElementByCss(fixture, 'h3.user-repo__user-name')!;
 
     expect(h3.textContent).toContain(component.repo.name);
   });
 
   it('should show repo visibility correctly', () => {
-    const visibilityElem: HTMLElement = fixture.nativeElement.querySelector(
-      '.user-repo__visibility',
-    );
+    const visibilityElem = findElementByCss(fixture, '.user-repo__visibility')!;
     const visibility = component.repo.visibility;
     const value = visibility.replace(
       visibility[0],
@@ -61,16 +61,19 @@ describe('UserRepoComponent', () => {
   });
 
   it('should have a link to the repo and open it in a new tab', () => {
-    const link: HTMLAnchorElement =
-      fixture.nativeElement.querySelector('.user-repo__link');
+    const link: HTMLAnchorElement = findElementByCss(
+      fixture,
+      '.user-repo__link',
+    )!;
 
     expect(link.href).toContain(component.repo.htmlUrl);
     expect(link.target).toEqual('_blank');
   });
 
   it('should render all repo statistic with info bars', () => {
-    const listItemsDE = fixture.debugElement.queryAll(
-      By.css('.user-repo__statistic-item'),
+    const listItemsDE = findAllDebugElementsByCss(
+      fixture,
+      '.user-repo__statistic-item',
     );
 
     expect(listItemsDE.length).toBe(component.userRepoData.length);

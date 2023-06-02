@@ -12,11 +12,18 @@ import { selectUsers } from '../../store/users.selectors';
 import { User } from '../../models/user.model';
 import { NoDataFoundComponent } from '../../../../shared/components/no-data-found/no-data-found.component';
 import { UserCardComponent } from '../../../../shared/components/user-card/user-card.component';
+import { UsersSearchComponent } from './components/users-search/users-search.component';
+import {
+  findAllDebugElementsByCss,
+  findAllDebugElementsByDirective,
+  findDebugElementByDirective,
+  findElementByCss,
+} from 'src/app/shared/utils/testing.helpers';
 
 @Component({
   selector: 'app-users-search',
 })
-class UsersSearchComponent {}
+class FakeUsersSearchComponent implements Partial<UsersSearchComponent> {}
 
 describe('UsersListComponent', () => {
   const USERS_MOCK: User[] = [
@@ -38,7 +45,7 @@ describe('UsersListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UsersListComponent, UsersSearchComponent],
+      declarations: [UsersListComponent, FakeUsersSearchComponent],
       imports: [SharedModule, RouterTestingModule],
       providers: [provideMockStore({})],
     });
@@ -54,23 +61,22 @@ describe('UsersListComponent', () => {
   });
 
   it('should render page h1 title', () => {
-    const elem = fixture.nativeElement.querySelector('h1.user-list__title');
+    const elem = findElementByCss(fixture, 'h1.user-list__title');
 
     expect(elem).toBeTruthy();
   });
 
   it('should render user search component', () => {
-    const searchDE = fixture.debugElement.query(
-      By.directive(UsersSearchComponent),
+    const searchDE = findDebugElementByDirective(
+      fixture,
+      FakeUsersSearchComponent,
     );
 
     expect(searchDE).toBeTruthy();
   });
 
   it('should render no data found or user lists', () => {
-    const noDataDE = fixture.debugElement.query(
-      By.directive(NoDataFoundComponent),
-    );
+    const noDataDE = findDebugElementByDirective(fixture, NoDataFoundComponent);
 
     expect(noDataDE).toBeTruthy();
 
@@ -78,7 +84,7 @@ describe('UsersListComponent', () => {
     mockStore.refreshState();
     fixture.detectChanges();
 
-    const usersDE = fixture.debugElement.queryAll(By.css('.user-list__item'));
+    const usersDE = findAllDebugElementsByCss(fixture, '.user-list__item');
 
     expect(usersDE.length).toEqual(USERS_MOCK.length);
   });
@@ -88,7 +94,7 @@ describe('UsersListComponent', () => {
     mockStore.refreshState();
     fixture.detectChanges();
 
-    const linksDE = fixture.debugElement.queryAll(By.directive(RouterLink));
+    const linksDE = findAllDebugElementsByDirective(fixture, RouterLink);
 
     linksDE.forEach((linkDE, i) => {
       expect(linkDE.nativeElement.href).toContain(USERS_MOCK[i].login);

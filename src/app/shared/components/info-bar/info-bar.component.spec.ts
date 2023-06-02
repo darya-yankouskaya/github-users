@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatTooltip } from '@angular/material/tooltip';
 import { InfoBarComponent } from './info-bar.component';
 import { SharedModule } from '../../shared.module';
-import { By } from '@angular/platform-browser';
-import { MatTooltip } from '@angular/material/tooltip';
+import {
+  findDebugElementByCss,
+  findElementByCss,
+} from '../../utils/testing.helpers';
 
 describe('InfoBarComponent', () => {
   let component: InfoBarComponent;
@@ -25,14 +27,13 @@ describe('InfoBarComponent', () => {
   });
 
   it('should render info', () => {
-    const imageElement: HTMLElement =
-      fixture.nativeElement.querySelector('.info-bar__info');
+    const info = findElementByCss(fixture, '.info-bar__info')!;
 
-    expect(imageElement.textContent).toEqual(component.info);
+    expect(info.textContent).toEqual(component.info);
   });
 
   it('should show the tooltip with info', () => {
-    const tooltipInfoDE = fixture.debugElement.query(By.css('.info-bar__info'));
+    const tooltipInfoDE = findDebugElementByCss(fixture, '.info-bar__info')!;
     const tooltip = tooltipInfoDE.injector.get(MatTooltip);
 
     expect(tooltip).toBeTruthy();

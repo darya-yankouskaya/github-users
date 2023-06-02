@@ -1,15 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { Component, Input } from '@angular/core';
 import { UserReposComponent } from './user-repos.component';
 import { SharedModule } from '../../../../../../shared/shared.module';
 import { UserRepoVisibility } from '../../../../enums/user-repo.enum';
 import { UserRepo } from '../../../../models/user-repo.model';
+import {
+  findAllDebugElementsByDirective,
+  findElementByCss,
+} from '../../../../../../shared/utils/testing.helpers';
+import { UserRepoComponent } from '../user-repo/user-repo.component';
 
 @Component({
   selector: 'app-user-repo',
 })
-class UserRepoComponent {
+class FakeUserRepoComponent implements Partial<UserRepoComponent> {
   @Input({ required: true }) repo!: UserRepo;
 }
 
@@ -37,7 +41,7 @@ describe('UserReposComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserReposComponent, UserRepoComponent],
+      declarations: [UserReposComponent, FakeUserRepoComponent],
       imports: [SharedModule],
     });
     fixture = TestBed.createComponent(UserReposComponent);
@@ -52,8 +56,9 @@ describe('UserReposComponent', () => {
     component.repos = getReposMock(component.maxCount);
     fixture.detectChanges();
 
-    const repoComponents = fixture.debugElement.queryAll(
-      By.directive(UserRepoComponent),
+    const repoComponents = findAllDebugElementsByDirective(
+      fixture,
+      FakeUserRepoComponent,
     );
 
     expect(repoComponents.length).toEqual(component.visibleRepos.length);
@@ -69,9 +74,7 @@ describe('UserReposComponent', () => {
     component.repos = getReposMock(component.maxCount + 1);
     fixture.detectChanges();
 
-    const btn = fixture.nativeElement.querySelector(
-      'button.user-repos__show-all-btn',
-    );
+    const btn = findElementByCss(fixture, 'button.user-repos__show-all-btn')!;
 
     expect(component.visibleRepos.length).not.toEqual(
       component.allRepos.length,
@@ -87,9 +90,7 @@ describe('UserReposComponent', () => {
     component.repos = getReposMock(component.maxCount - 1);
     fixture.detectChanges();
 
-    const btn = fixture.nativeElement.querySelector(
-      'button.user-repos__show-all-btn',
-    );
+    const btn = findElementByCss(fixture, 'button.user-repos__show-all-btn')!;
 
     expect(btn).toBeNull();
   });

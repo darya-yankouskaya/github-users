@@ -1,24 +1,10 @@
-@use 'mixins.scss' as mixin;
-
 .user-followers {
   display: flex;
   flex-direction: column;
 
   &__list {
     display: grid;
-    grid-template-columns: 100%;
-
-    @include mixin.respond-to('small') {
-      grid-template-columns: repeat(2, 50%);
-    }
-
-    @include mixin.respond-to('medium') {
-      grid-template-columns: repeat(4, 25%);
-    }
-
-    @include mixin.respond-to('large') {
-      grid-template-columns: repeat(5, 20%);
-    }
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 
   &__list-item {
